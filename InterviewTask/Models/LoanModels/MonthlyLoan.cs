@@ -1,39 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Linq;
-using System.Web;
-
-namespace InterviewTask.Models
+﻿
+namespace InterviewTask.Models.LoanModels
 {
+    using System;
+    using System.Collections.Generic;
+
     public class MonthlyLoan : Loan
     {
         public MonthlyLoan(Decimal interest)
         {
-            Interest = interest;
+            this.Interest = interest;
         }
 
         public override List<Payment> ReturnPayments(Decimal TotalAmount, UInt16 NumberOfYears)
         {
-            if (NumberOfYears * 12 > UInt16.MaxValue)
-                throw new ArgumentOutOfRangeException("CapitalizationPeriods");
+            this.ValidateInputs(TotalAmount, NumberOfYears);
 
-            var monthlyInterest = this.Interest / 12;
-            var monthlyCapitalizationPeriods = (ushort)(NumberOfYears * 12);
-            var monthlyCapital = TotalAmount / monthlyCapitalizationPeriods;
+            var interestPerMonth = this.Interest / Compounds.Monthly;
+            var capitalizationPeriod = NumberOfYears * Compounds.Monthly;
+            var capitalPerMonth = TotalAmount / capitalizationPeriod;
+
             var paymentList = new List<Payment>();
 
-            for (ushort i = 0; i < monthlyCapitalizationPeriods; i++)
+            for (ushort i = 0; i < capitalizationPeriod; i++)
             {
-                var currentPayment = new Payment
+                paymentList.Add(new Payment
                 {
-                    PaymentNo = i,
-                    Capital = monthlyCapital,
-                    Interest = TotalAmount * monthlyInterest
-                };
-                paymentList.Add(currentPayment);
+                    PaymentID = i,
+                    Capital = capitalPerMonth,
+                    Interest = TotalAmount * interestPerMonth
+                });
 
-                TotalAmount -= monthlyCapital;
+                TotalAmount -= capitalPerMonth;
             }
 
             return paymentList;

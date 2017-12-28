@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Web;
-
+﻿
 namespace InterviewTask.Models
 {
+    using InterviewTask.Models.LoanModels;
+    using System;
+    using System.Runtime.Serialization;
+
     [DataContract]
     public class LoanType
     {

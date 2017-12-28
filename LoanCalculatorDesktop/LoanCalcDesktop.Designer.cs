@@ -1,6 +1,6 @@
 ﻿namespace LoanCalculatorDesktop
 {
-    partial class Form1
+    partial class LoanCalcDesktop
     {
         /// <summary>
         /// Required designer variable.
@@ -54,7 +54,7 @@
             this.loanTypeComboBox.Size = new System.Drawing.Size(203, 28);
             this.loanTypeComboBox.TabIndex = 0;
             this.loanTypeComboBox.Text = "Select loan type...";
-            this.loanTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.LoanTypeComboBox_SelectedIndexChangedAsync);
+            this.loanTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedItemChanged);
             // 
             // paymentListView
             // 
@@ -138,7 +138,7 @@
             this.calculateButton.TabIndex = 8;
             this.calculateButton.Text = "Calculate!";
             this.calculateButton.UseVisualStyleBackColor = true;
-            this.calculateButton.Click += new System.EventHandler(this.CalculateButton_Click);
+            this.calculateButton.Click += new System.EventHandler(this.button_CalculateAction);
             // 
             // serverConnectingLabel
             // 
@@ -198,7 +198,7 @@
             this.Controls.Add(this.loanTypeComboBox);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.loanCalcDesktop_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

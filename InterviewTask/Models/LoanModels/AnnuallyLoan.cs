@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace InterviewTask.Models.LoanModels
 {
+    using System.Collections.Generic;
+
     public class AnnuallyLoan : Loan
     {
         public AnnuallyLoan(decimal interest)
@@ -14,25 +12,24 @@ namespace InterviewTask.Models.LoanModels
 
         public override List<Payment> ReturnPayments(decimal TotalAmount, ushort NumberOfYears)
         {
-            if (NumberOfYears * 12 > UInt16.MaxValue)
-                throw new ArgumentOutOfRangeException("CapitalizationPeriods");
+            this.ValidateInputs(TotalAmount, NumberOfYears);
 
-            var annuallyInterest = this.Interest / NumberOfYears;
-            var annuallyCapital = TotalAmount / NumberOfYears;
+            var interestPerMonth = this.Interest / Compounds.Annually;
+            var capitalizationPeriod = NumberOfYears * Compounds.Annually;
+            var capitalPerMonth = TotalAmount / capitalizationPeriod;
 
             var paymentList = new List<Payment>();
 
-            for (ushort i = 0; i < NumberOfYears; i++)
+            for (ushort i = 0; i < capitalizationPeriod; i++)
             {
-                var currentPayment = new Payment
+                paymentList.Add(new Payment
                 {
-                    PaymentNo = i,
-                    Capital = annuallyCapital,
-                    Interest = TotalAmount * annuallyInterest
-                };
-                paymentList.Add(currentPayment);
+                    PaymentID = i,
+                    Capital = capitalPerMonth,
+                    Interest = TotalAmount * interestPerMonth
+                });
 
-                TotalAmount -= annuallyCapital;
+                TotalAmount -= capitalPerMonth;
             }
 
             return paymentList;

@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Web;
-
+﻿
 namespace InterviewTask.Models
 {
+    using System;
+    using System.Runtime.Serialization;
+
     [DataContract]
     public class Payment
     {
         [DataMember]
-        public UInt16 PaymentNo { get; set; }
+        public UInt16 PaymentID { get; set; }
 
         [DataMember]
         public Decimal Capital { get; set; }

@@ -1,13 +1,10 @@
-﻿using InterviewTask.Models;
-using InterviewTask.Models.LoanModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace InterviewTask.Data
 {
-    public class MockDB
+    using InterviewTask.Models;
+    using InterviewTask.Models.LoanModels;
+
+    public class MockDB : DB
     {
         private LoanType[] _loans =
         {
@@ -49,15 +46,9 @@ namespace InterviewTask.Data
             },
         };
 
-        public LoanType[] Loans
+        public override LoanType[] Loans
         {
-            get { return _loans; }
+            get => _loans;
         }
-
-        //public Loan[] LoansTable =
-        //{
-        //    new Loan(0.0429M),
-        //    new Loan(0.1M)
-        //};
-    }
+}
 }
