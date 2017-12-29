@@ -36,13 +36,12 @@ namespace LoanCalculatorDesktop
         /// <param name="LoanTypeID">ID of loan</param>
         /// <param name="TotalAmount">Loan amount</param>
         /// <param name="NumberOfYears">Loan years</param>
-        public async Task GetPayments(UInt16 LoanTypeID, Decimal TotalAmount, UInt16 NumberOfYears)
+        public async Task GetPayments(UInt16 LoanTypeID, UInt16 NumberOfYears)
         {
-            var response = await _client.GetAsync($"api/Loan/ReturnPayments?LoanTypeID={LoanTypeID}&TotalAmount={TotalAmount}&NumberOfYears={NumberOfYears}");
+            var response = await _client.GetAsync($"api/Loan/CalculatePayments?LoanTypeID={LoanTypeID}&NumberOfYears={NumberOfYears}");
 
             if (response.IsSuccessStatusCode)
-                _currentForm.PaymentList = await response.Content.ReadAsAsync<List<Payment>>();
-            //currentForm.PaymentList = response.Content.ReadAsAsync<List<Payment>>().Result; // sync
+                await _currentForm.PopulateListView(await response.Content.ReadAsAsync<List<Payment>>());
             else
                 throw new HttpRequestException("Could not connect to server!");
         }
@@ -64,6 +63,22 @@ namespace LoanCalculatorDesktop
         }
 
         /// <summary>
+        /// Seds web request to get amount of specified loan. 
+        /// Used to fill interest textbox in main view.
+        /// </summary>
+        /// <param name="LoanTypeID">ID of loan</param>
+        /// <returns>Interest</returns>
+        public async Task<decimal> GetAmount(UInt16 LoanTypeID)
+        {
+            var response = await _client.GetAsync($"api/Loan/GetAmount?LoanTypeID={LoanTypeID}");
+
+            if (response.IsSuccessStatusCode)
+                return await response.Content.ReadAsAsync<Decimal>();
+            else
+                throw new HttpRequestException("Could not connect to server!");
+        }
+
+        /// <summary>
         /// Sends web request to get loan types from server. 
         /// Used to populate combobox when desktop app starts
         /// </summary>
@@ -72,7 +87,7 @@ namespace LoanCalculatorDesktop
             var response = await _client.GetAsync($"api/Loan/GetLoanTypes");
 
             if (response.IsSuccessStatusCode)
-                _currentForm.LoanTypeList = await response.Content.ReadAsAsync<List<LoanType>>();
+                _currentForm.PopulateComboBox(await response.Content.ReadAsAsync<List<LoanType>>());
             else
                 throw new HttpRequestException("Could not connect to server!");
         }

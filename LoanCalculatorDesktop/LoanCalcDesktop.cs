@@ -4,6 +4,7 @@ namespace LoanCalculatorDesktop
     using InterviewTask.Models;
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     public partial class LoanCalcDesktop : Form
@@ -13,16 +14,6 @@ namespace LoanCalculatorDesktop
         public string ServerUrl
         {
             get => "http://localhost:55735/";
-        }
-
-        public List<LoanType> LoanTypeList
-        {
-            set => this.populateComboBox(value);
-        }
-
-        public List<Payment> PaymentList
-        {
-            set => this.populateListView(value);
         }
 
         /// <summary>
@@ -42,7 +33,9 @@ namespace LoanCalculatorDesktop
             try
             {
                 await _connector.GetLoanTypes();
+
                 serverConnectingLabel.Hide();
+                this.UseWaitCursor = false;
             }
             catch
             {
@@ -54,30 +47,37 @@ namespace LoanCalculatorDesktop
 
         // Combobox related method(s)
 
-        private void populateComboBox(List<LoanType> loanTypes)
+        public void PopulateComboBox(List<LoanType> loanTypes)
         {
             loanTypeComboBox.Items.AddRange(loanTypes.ToArray());
         }
 
         private async void comboBox_SelectedItemChanged(object sender, EventArgs e)
         {
-            decimal interest = await _connector.GetInterest(
-                (loanTypeComboBox.SelectedItem as LoanType).LoanTypeID); // async
+            var loanTypeID = (loanTypeComboBox.SelectedItem as LoanType).LoanTypeID;
+
+            decimal interest = await _connector.GetInterest(loanTypeID);
+            decimal amount = await _connector.GetAmount(loanTypeID);
 
             interestTextBox.Text = interest.ToString("P");
+            loanAmountBox.Text = amount.ToString("0.00");
         }
 
         // Listview related method(s)
 
-        private void populateListView(List<Payment> payments)
+        public async Task PopulateListView(List<Payment> payments)
         {
-            if (paymentListView.Items.Count != 0)
-                paymentListView.Items.Clear();
+            var listViewRows = new List<ListViewItem>();
 
-            foreach (var payment in payments)
+            await Task.Factory.StartNew(() =>
             {
-                paymentListView.Items.Add(populateListViewRow(payment));
-            }
+                foreach (var payment in payments)
+                {
+                    listViewRows.Add(populateListViewRow(payment));
+                }
+            });
+
+            paymentListView.Items.AddRange(listViewRows.ToArray());
         }
 
         private ListViewItem populateListViewRow(Payment payment)
@@ -87,9 +87,9 @@ namespace LoanCalculatorDesktop
 
             newRow.SubItems.AddRange(new string[]
             {
+                payment.Total.ToString("0.00"),
                 payment.Capital.ToString("0.00"),
-                payment.Interest.ToString("0.00"),
-                payment.Total.ToString("0.00")
+                payment.Interest.ToString("0.00")
             });
 
             return newRow;
@@ -99,25 +99,52 @@ namespace LoanCalculatorDesktop
 
         private async void button_CalculateAction(object sender, EventArgs e)
         {
+            // preparation part
             UInt16 loanTypeID;
-            Decimal totalAmount;
             UInt16 numberOfYears;
 
+            if (paymentListView.Items.Count != 0)
+                paymentListView.Items.Clear();
+
+            calculateButton.Enabled = false;
+            calculateButton.Text = "Calculating...";
+
+            // validation part
             try
             {
                 loanTypeID = (loanTypeComboBox.SelectedItem as LoanType).LoanTypeID;
-                totalAmount = Decimal.Parse(loanAmountBox.Text);
                 numberOfYears = UInt16.Parse(loanYearsBox.Text);
 
-                calculateValidation.Visible = false;
+                calculateValidation.Hide();
             }
             catch
             {
-                calculateValidation.Visible = true;
+                calculateValidation.Show();
+                serverConnectingLabel.Hide();
+                calculateButton.Enabled = true;
+                calculateButton.Text = "Calculate!";
                 return;
             }
 
-            await _connector.GetPayments(loanTypeID, totalAmount, numberOfYears);
+            // waiting for response
+            serverConnectingLabel.Text = "Waiting for server response.\nPlease wait";
+            serverConnectingLabel.Show();
+
+            try
+            {
+                await _connector.GetPayments(loanTypeID, numberOfYears);
+
+                serverConnectingLabel.Hide();
+            }
+            catch
+            {
+                serverConnectingLabel.Text = "Too long response time";
+            }
+            finally
+            {
+                calculateButton.Enabled = true;
+                calculateButton.Text = "Calculate!";
+            }
         }
     }
 }

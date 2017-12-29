@@ -28,8 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoanCalcDesktop));
             this.loanTypeComboBox = new System.Windows.Forms.ComboBox();
             this.paymentListView = new System.Windows.Forms.ListView();
+            this.No = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Total = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Capital = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Interest = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.interestTextBox = new System.Windows.Forms.TextBox();
             this.interestLabel = new System.Windows.Forms.Label();
             this.loanAmountBox = new System.Windows.Forms.TextBox();
@@ -39,10 +44,6 @@
             this.calculateButton = new System.Windows.Forms.Button();
             this.serverConnectingLabel = new System.Windows.Forms.Label();
             this.calculateValidation = new System.Windows.Forms.Label();
-            this.No = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Capital = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Interest = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Total = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // loanTypeComboBox
@@ -54,6 +55,7 @@
             this.loanTypeComboBox.Size = new System.Drawing.Size(203, 28);
             this.loanTypeComboBox.TabIndex = 0;
             this.loanTypeComboBox.Text = "Select loan type...";
+            this.loanTypeComboBox.UseWaitCursor = true;
             this.loanTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedItemChanged);
             // 
             // paymentListView
@@ -61,16 +63,36 @@
             this.paymentListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.paymentListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.No,
+            this.Total,
             this.Capital,
-            this.Interest,
-            this.Total});
+            this.Interest});
             this.paymentListView.ForeColor = System.Drawing.SystemColors.WindowText;
             this.paymentListView.Location = new System.Drawing.Point(12, 101);
             this.paymentListView.Name = "paymentListView";
             this.paymentListView.Size = new System.Drawing.Size(677, 371);
             this.paymentListView.TabIndex = 1;
             this.paymentListView.UseCompatibleStateImageBehavior = false;
+            this.paymentListView.UseWaitCursor = true;
             this.paymentListView.View = System.Windows.Forms.View.Details;
+            // 
+            // No
+            // 
+            this.No.Text = "No.";
+            // 
+            // Total
+            // 
+            this.Total.Text = "Total";
+            this.Total.Width = 120;
+            // 
+            // Capital
+            // 
+            this.Capital.Text = "Capital";
+            this.Capital.Width = 120;
+            // 
+            // Interest
+            // 
+            this.Interest.Text = "Interest";
+            this.Interest.Width = 120;
             // 
             // interestTextBox
             // 
@@ -81,6 +103,7 @@
             this.interestTextBox.Size = new System.Drawing.Size(100, 30);
             this.interestTextBox.TabIndex = 2;
             this.interestTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.interestTextBox.UseWaitCursor = true;
             // 
             // interestLabel
             // 
@@ -91,15 +114,18 @@
             this.interestLabel.Size = new System.Drawing.Size(65, 20);
             this.interestLabel.TabIndex = 3;
             this.interestLabel.Text = "Interest";
+            this.interestLabel.UseWaitCursor = true;
             // 
             // loanAmountBox
             // 
             this.loanAmountBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.loanAmountBox.Location = new System.Drawing.Point(393, 12);
             this.loanAmountBox.Name = "loanAmountBox";
+            this.loanAmountBox.ReadOnly = true;
             this.loanAmountBox.Size = new System.Drawing.Size(100, 30);
             this.loanAmountBox.TabIndex = 4;
             this.loanAmountBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.loanAmountBox.UseWaitCursor = true;
             // 
             // loanYearsBox
             // 
@@ -109,6 +135,7 @@
             this.loanYearsBox.Size = new System.Drawing.Size(100, 30);
             this.loanYearsBox.TabIndex = 5;
             this.loanYearsBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.loanYearsBox.UseWaitCursor = true;
             // 
             // amountLabel
             // 
@@ -119,6 +146,7 @@
             this.amountLabel.Size = new System.Drawing.Size(108, 20);
             this.amountLabel.TabIndex = 6;
             this.amountLabel.Text = "Total Amount";
+            this.amountLabel.UseWaitCursor = true;
             // 
             // yearsLabel
             // 
@@ -129,6 +157,7 @@
             this.yearsLabel.Size = new System.Drawing.Size(94, 20);
             this.yearsLabel.TabIndex = 7;
             this.yearsLabel.Text = "Total Years";
+            this.yearsLabel.UseWaitCursor = true;
             // 
             // calculateButton
             // 
@@ -138,49 +167,38 @@
             this.calculateButton.TabIndex = 8;
             this.calculateButton.Text = "Calculate!";
             this.calculateButton.UseVisualStyleBackColor = true;
+            this.calculateButton.UseWaitCursor = true;
             this.calculateButton.Click += new System.EventHandler(this.button_CalculateAction);
             // 
             // serverConnectingLabel
             // 
             this.serverConnectingLabel.AutoSize = true;
-            this.serverConnectingLabel.Location = new System.Drawing.Point(259, 268);
+            this.serverConnectingLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.serverConnectingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.serverConnectingLabel.Location = new System.Drawing.Point(206, 260);
             this.serverConnectingLabel.Name = "serverConnectingLabel";
-            this.serverConnectingLabel.Size = new System.Drawing.Size(163, 17);
+            this.serverConnectingLabel.Size = new System.Drawing.Size(251, 26);
             this.serverConnectingLabel.TabIndex = 9;
             this.serverConnectingLabel.Text = "Connecting with server...";
+            this.serverConnectingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.serverConnectingLabel.UseWaitCursor = true;
             // 
             // calculateValidation
             // 
             this.calculateValidation.AutoSize = true;
-            this.calculateValidation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.calculateValidation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.calculateValidation.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.calculateValidation.ForeColor = System.Drawing.Color.Red;
-            this.calculateValidation.Location = new System.Drawing.Point(231, 285);
+            this.calculateValidation.Location = new System.Drawing.Point(194, 286);
             this.calculateValidation.Name = "calculateValidation";
-            this.calculateValidation.Size = new System.Drawing.Size(217, 25);
+            this.calculateValidation.Size = new System.Drawing.Size(280, 29);
             this.calculateValidation.TabIndex = 10;
             this.calculateValidation.Text = "Provided incorrect data!";
+            this.calculateValidation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.calculateValidation.UseWaitCursor = true;
             this.calculateValidation.Visible = false;
             // 
-            // No
-            // 
-            this.No.Text = "No.";
-            // 
-            // Capital
-            // 
-            this.Capital.Text = "Capital";
-            this.Capital.Width = 192;
-            // 
-            // Interest
-            // 
-            this.Interest.Text = "Interest";
-            this.Interest.Width = 192;
-            // 
-            // Total
-            // 
-            this.Total.Text = "Total";
-            this.Total.Width = 192;
-            // 
-            // Form1
+            // LoanCalcDesktop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -196,8 +214,10 @@
             this.Controls.Add(this.interestTextBox);
             this.Controls.Add(this.paymentListView);
             this.Controls.Add(this.loanTypeComboBox);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "LoanCalcDesktop";
+            this.Text = "Loan Calculator - Desktop";
+            this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.loanCalcDesktop_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -218,9 +238,9 @@
         private System.Windows.Forms.Label serverConnectingLabel;
         private System.Windows.Forms.Label calculateValidation;
         private System.Windows.Forms.ColumnHeader No;
+        private System.Windows.Forms.ColumnHeader Total;
         private System.Windows.Forms.ColumnHeader Capital;
         private System.Windows.Forms.ColumnHeader Interest;
-        private System.Windows.Forms.ColumnHeader Total;
     }
 }
 

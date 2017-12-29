@@ -7,10 +7,11 @@ namespace InterviewTask.Models.LoanModels
     public abstract class Loan
     {
         public Decimal Interest { get; protected set; }
+        public Decimal TotalAmount { get; protected set; }
 
-        public abstract List<Payment> ReturnPayments(Decimal TotalAmount, UInt16 NumberOfYears);
+        public abstract List<Payment> ReturnPayments(UInt16 NumberOfYears);
 
-        protected void ValidateInputs(Decimal TotalAmount, UInt16 NumberOfYears)
+        protected void ValidateInputs(UInt16 NumberOfYears)
         {
             if (this.Interest < 0)
                 throw new ArgumentOutOfRangeException("Interest cannot be less than 0");

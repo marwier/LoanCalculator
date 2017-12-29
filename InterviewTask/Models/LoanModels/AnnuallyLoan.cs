@@ -1,22 +1,24 @@
 ﻿
 namespace InterviewTask.Models.LoanModels
 {
+    using System;
     using System.Collections.Generic;
 
     public class AnnuallyLoan : Loan
     {
-        public AnnuallyLoan(decimal interest)
+        public AnnuallyLoan(Decimal interest, Decimal totalAmount)
         {
             this.Interest = interest;
+            this.TotalAmount = totalAmount;
         }
 
-        public override List<Payment> ReturnPayments(decimal TotalAmount, ushort NumberOfYears)
+        public override List<Payment> ReturnPayments(ushort NumberOfYears)
         {
-            this.ValidateInputs(TotalAmount, NumberOfYears);
+            this.ValidateInputs(NumberOfYears);
 
             var interestPerMonth = this.Interest / Compounds.Annually;
             var capitalizationPeriod = NumberOfYears * Compounds.Annually;
-            var capitalPerMonth = TotalAmount / capitalizationPeriod;
+            var capitalPerMonth = this.TotalAmount / capitalizationPeriod;
 
             var paymentList = new List<Payment>();
 
@@ -26,10 +28,10 @@ namespace InterviewTask.Models.LoanModels
                 {
                     PaymentID = i,
                     Capital = capitalPerMonth,
-                    Interest = TotalAmount * interestPerMonth
+                    Interest = this.TotalAmount * interestPerMonth
                 });
 
-                TotalAmount -= capitalPerMonth;
+                this.TotalAmount -= capitalPerMonth;
             }
 
             return paymentList;

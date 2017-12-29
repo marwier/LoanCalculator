@@ -12,12 +12,18 @@ namespace InterviewTask.Controllers
 
     public class LoanController : ApiController
     {
-        private DB _database = new MockDB();
+        private MockDB _database = new MockDB();
 
         [HttpGet]
         public Decimal GetInterest(UInt16 LoanTypeID)
         {
             return getLoan(LoanTypeID).Interest;
+        }
+
+        [HttpGet]
+        public Decimal GetAmount(UInt16 LoanTypeID)
+        {
+            return getLoan(LoanTypeID).TotalAmount;
         }
 
         [HttpGet]
@@ -27,11 +33,11 @@ namespace InterviewTask.Controllers
         }
 
         [HttpGet]
-        public List<Payment> ReturnPayments(UInt16 LoanTypeID, Decimal TotalAmount, UInt16 NumberOfYears)
+        public List<Payment> CalculatePayments(UInt16 LoanTypeID, UInt16 NumberOfYears)
         {
             try
             {
-                return getLoan(LoanTypeID).ReturnPayments(TotalAmount, NumberOfYears);
+                return getLoan(LoanTypeID).ReturnPayments(NumberOfYears);
             }
             catch
             {

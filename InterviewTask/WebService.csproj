@@ -106,13 +106,13 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="LoanCalculatorOnline.html" />
+    <Content Include="scripts.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LoanController.cs" />
-    <Compile Include="Data\DB.cs" />
     <Compile Include="Data\MockDB.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

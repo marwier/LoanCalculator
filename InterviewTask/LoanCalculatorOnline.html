@@ -1,51 +1,59 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Online loan calculator</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
-<body onload="populateDropDownList()">
-    <div class="MainContainer">
+
+<body>
+    <script src="scripts.js"></script>
+
+    <div class="container">
         <form>
-            First name:<br>
-            <input type="text" name="firstname" value="Mickey">
-            <br>
-            Last name:<br>
-            <input type="text" name="lastname" value="Mouse">
-            <br><br>
-            <input type="submit" value="Submit">
+            <div class="form-group row">
+
+                <div class="col-xs-2">
+                    <label for="exampleFormControlSelect1">Loan type:</label>
+                    <select class="form-control" id="loanTypeDropDownList" onchange="getSelectedLoanData()">
+                        <option value="">None</option>
+                    </select>
+                </div>
+
+                <div class="col-xs-2">
+                    <label for="disabledTextInput">Interest:</label>
+                    <input type="text" id="interestField" class="form-control" disabled>
+                </div>
+
+                <div class="col-xs-2">
+                    <label for="disabledTextInput">Amount:</label>
+                    <input type="text" id="totalAmountField" class="form-control" disabled>
+                </div>
+
+                <div class="col-xs-2">
+                    <label for="disabledTextInput">Years:</label>
+                    <input type="text" id="totalYearsField" class="form-control" placeholder="Enter number of years" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <button type="button" id="calculateButton" class="btn btn-default center-block" onclick="calculateLoan()" disabled>Calculate!</button>
+            </div>
         </form>
 
-        <select id="loanTypeDropDownList" name="Loan Type"></select>
+        <table class="table table-bordered" id="calculationsTable">
+            <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Total</td>
+                    <td>Capital</td>
+                    <td>Interest</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
-
-
-
-
-
-
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>
-        function populateDropDownList() {
-            // jQuery: Load JSON-encoded data from the server using a GET HTTP request
-            $.getJSON('../api/Loan/GetLoanTypes').done(
-                function (loanTypes) {
-                    var dropDownList = document.getElementById("loanTypeDropDownList");
-
-                    // loanTypes variable is an object list
-                    $(loanTypes).each(
-                        function (index, obj) {
-                            var option = document.createElement('option');
-                            // obj value is LoanType
-                            option.text = (obj.LoanTypeID + 1) + ". " + obj.LoanText;
-                            option.value = obj.Loan;
-                            dropDownList.appendChild(option);
-
-                        });
-                });
-        }
-    </script>
 </body>
 </html>
