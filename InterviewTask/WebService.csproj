@@ -105,8 +105,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="LoanCalculatorOnline.html" />
-    <Content Include="scripts.js" />
+    <Content Include="Website\LoanCalculatorOnline.html" />
+    <Content Include="Website\scripts.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -125,7 +125,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

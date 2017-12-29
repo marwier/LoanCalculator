@@ -1,4 +1,6 @@
-﻿namespace LoanCalculatorDesktop
+﻿using System;
+
+namespace LoanCalculatorDesktop
 {
     partial class LoanCalcDesktop
     {
@@ -136,6 +138,8 @@
             this.loanYearsBox.TabIndex = 5;
             this.loanYearsBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.loanYearsBox.UseWaitCursor = true;
+            this.loanYearsBox.TextChanged += new System.EventHandler(this.loanYearsBox_valueChanged);
+            this.loanYearsBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.loanYearsBox_keyPressed);
             // 
             // amountLabel
             // 
@@ -161,6 +165,7 @@
             // 
             // calculateButton
             // 
+            this.calculateButton.Enabled = false;
             this.calculateButton.Location = new System.Drawing.Point(528, 12);
             this.calculateButton.Name = "calculateButton";
             this.calculateButton.Size = new System.Drawing.Size(161, 71);

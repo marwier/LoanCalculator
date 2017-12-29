@@ -2,7 +2,7 @@
 function getSelectedLoanData() {
     var selectedLoanID = document.getElementById("loanTypeDropDownList").value;
 
-    if (selectedLoanID != 0) {
+    if (selectedLoanID != "") {
         // get interest
         $.getJSON('../api/Loan/GetInterest', {
             LoanTypeID: selectedLoanID
@@ -23,7 +23,7 @@ function getSelectedLoanData() {
                 document.getElementById("totalAmountField").value = amount.toLocaleString("en",
                     {
                         style: 'currency',
-                        currency: 'USD',
+                        currency: 'USD'
                     });
             });
     }
@@ -37,13 +37,15 @@ function calculateLoan() {
     var selectedLoanID = document.getElementById("loanTypeDropDownList").value;
     var years = document.getElementById("totalYearsField").value;
 
-    $.getJSON('api/Loan/CalculatePayments',
+    $('#calculationsTable').find("tr:gt(0)").remove(); // remove all table rows greater than index 0
+
+    $.getJSON('../api/Loan/CalculatePayments',
         {
             LoanTypeID: selectedLoanID,
-            NumberOfYears: years,
+            NumberOfYears: years
         }).done(
         function (data) {
-            $('#calculationsTable').find("tr:gt(0)").remove(); // remove all table rows greater than index 0
+
 
             $(data).each(function (index, obj) {
                 var row = document.getElementById("calculationsTable").insertRow();
@@ -55,27 +57,25 @@ function calculateLoan() {
                 row.insertCell(1).innerHTML = obj.Total.toLocaleString("en",
                     {
                         style: 'currency',
-                        currency: 'USD',
+                        currency: 'USD'
                     });
 
                 // capital
                 row.insertCell(2).innerHTML = obj.Capital.toLocaleString("en",
                     {
                         style: 'currency',
-                        currency: 'USD',
+                        currency: 'USD'
                     });
 
                 // interest
                 row.insertCell(3).innerHTML = obj.Interest.toLocaleString("en",
                     {
                         style: 'currency',
-                        currency: 'USD',
+                        currency: 'USD'
                     });
             });
         });
 }
-
-// jQuery section
 
 $(function () {
     $.getJSON('../api/Loan/GetLoanTypes').done(
@@ -98,7 +98,8 @@ $(function () {
 $(function () {
     $("#loanTypeDropDownList, #totalYearsField").bind("change keyup",
         function () {
-            if ($("#loanTypeDropDownList").val() != "" && $("#totalYearsField").val() != "") {
+            if ($("#loanTypeDropDownList").val() != "" && $("#totalYearsField").val() != "" &&
+                !isNaN(parseInt($("#totalYearsField").val())) && isFinite($("#totalYearsField").val())) {
                 document.getElementById("calculateButton").disabled = false;
             } else {
                 document.getElementById("calculateButton").disabled = true;

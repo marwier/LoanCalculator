@@ -61,6 +61,11 @@ namespace LoanCalculatorDesktop
 
             interestTextBox.Text = interest.ToString("P");
             loanAmountBox.Text = amount.ToString("0.00");
+
+            if (loanTypeComboBox.SelectedItem == null)
+                calculateButton.Enabled = false;
+            else if (!string.IsNullOrEmpty(loanYearsBox.Text))
+                calculateButton.Enabled = true;
         }
 
         // Listview related method(s)
@@ -145,6 +150,24 @@ namespace LoanCalculatorDesktop
                 calculateButton.Enabled = true;
                 calculateButton.Text = "Calculate!";
             }
+        }
+
+        // input box related method(s)
+
+        private void loanYearsBox_keyPressed(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void loanYearsBox_valueChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(loanYearsBox.Text))
+                calculateButton.Enabled = false;
+            else if (loanTypeComboBox.SelectedItem != null)
+                calculateButton.Enabled = true;
         }
     }
 }
