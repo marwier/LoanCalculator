@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebService", "InterviewTask
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanCalculatorDesktop", "LoanCalculatorDesktop\LoanCalculatorDesktop.csproj", "{CB8F41AB-C40B-45DB-AD9C-D3B8070E6BBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanCalculatorWebsite", "LoanCalculatorWebsite\LoanCalculatorWebsite.csproj", "{35E94065-F41A-4085-A0A8-246CBCF5C49D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{CB8F41AB-C40B-45DB-AD9C-D3B8070E6BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB8F41AB-C40B-45DB-AD9C-D3B8070E6BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB8F41AB-C40B-45DB-AD9C-D3B8070E6BBE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35E94065-F41A-4085-A0A8-246CBCF5C49D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35E94065-F41A-4085-A0A8-246CBCF5C49D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35E94065-F41A-4085-A0A8-246CBCF5C49D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35E94065-F41A-4085-A0A8-246CBCF5C49D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

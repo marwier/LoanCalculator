@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body onload="populateDropDownList()">
+    <div class="MainContainer">
+        <form>
+            First name:<br>
+            <input type="text" name="firstname" value="Mickey">
+            <br>
+            Last name:<br>
+            <input type="text" name="lastname" value="Mouse">
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+
+        <select id="loanTypeDropDownList" name="Loan Type"></select>
+    </div>
+
+
+
+
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        function populateDropDownList() {
+            // jQuery: Load JSON-encoded data from the server using a GET HTTP request
+            $.getJSON('../api/Loan/GetLoanTypes').done(
+                function (loanTypes) {
+                    var dropDownList = document.getElementById("loanTypeDropDownList");
+
+                    // loanTypes variable is an object list
+                    $(loanTypes).each(
+                        function (index, obj) {
+                            var option = document.createElement('option');
+                            // obj value is LoanType
+                            option.text = (obj.LoanTypeID + 1) + ". " + obj.LoanText;
+                            option.value = obj.Loan;
+                            dropDownList.appendChild(option);
+
+                        });
+                });
+        }
+    </script>
+</body>
+</html>
