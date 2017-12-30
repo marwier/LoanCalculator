@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace LoanCalculatorDesktop
 {
@@ -7,7 +8,7 @@ namespace LoanCalculatorDesktop
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -58,7 +59,7 @@ namespace LoanCalculatorDesktop
             this.loanTypeComboBox.TabIndex = 0;
             this.loanTypeComboBox.Text = "Select loan type...";
             this.loanTypeComboBox.UseWaitCursor = true;
-            this.loanTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedItemChanged);
+            this.loanTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedItemChanged);
             // 
             // paymentListView
             // 
@@ -138,8 +139,8 @@ namespace LoanCalculatorDesktop
             this.loanYearsBox.TabIndex = 5;
             this.loanYearsBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.loanYearsBox.UseWaitCursor = true;
-            this.loanYearsBox.TextChanged += new System.EventHandler(this.loanYearsBox_valueChanged);
-            this.loanYearsBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.loanYearsBox_keyPressed);
+            this.loanYearsBox.TextChanged += new System.EventHandler(this.LoanYearsBox_valueChanged);
+            this.loanYearsBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LoanYearsBox_keyPressed);
             // 
             // amountLabel
             // 
@@ -173,7 +174,7 @@ namespace LoanCalculatorDesktop
             this.calculateButton.Text = "Calculate!";
             this.calculateButton.UseVisualStyleBackColor = true;
             this.calculateButton.UseWaitCursor = true;
-            this.calculateButton.Click += new System.EventHandler(this.button_CalculateAction);
+            this.calculateButton.Click += new System.EventHandler(this.Button_CalculateAction);
             // 
             // serverConnectingLabel
             // 
@@ -223,7 +224,7 @@ namespace LoanCalculatorDesktop
             this.Name = "LoanCalcDesktop";
             this.Text = "Loan Calculator - Desktop";
             this.UseWaitCursor = true;
-            this.Load += new System.EventHandler(this.loanCalcDesktop_Load);
+            this.Load += new System.EventHandler(this.LoanCalcDesktop_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,21 +232,21 @@ namespace LoanCalculatorDesktop
 
         #endregion
 
-        private System.Windows.Forms.ComboBox loanTypeComboBox;
-        private System.Windows.Forms.ListView paymentListView;
-        private System.Windows.Forms.TextBox interestTextBox;
-        private System.Windows.Forms.Label interestLabel;
-        private System.Windows.Forms.TextBox loanAmountBox;
-        private System.Windows.Forms.TextBox loanYearsBox;
-        private System.Windows.Forms.Label amountLabel;
-        private System.Windows.Forms.Label yearsLabel;
-        private System.Windows.Forms.Button calculateButton;
-        private System.Windows.Forms.Label serverConnectingLabel;
-        private System.Windows.Forms.Label calculateValidation;
-        private System.Windows.Forms.ColumnHeader No;
-        private System.Windows.Forms.ColumnHeader Total;
-        private System.Windows.Forms.ColumnHeader Capital;
-        private System.Windows.Forms.ColumnHeader Interest;
+        private ComboBox loanTypeComboBox;
+        private ListView paymentListView;
+        private TextBox interestTextBox;
+        private Label interestLabel;
+        private TextBox loanAmountBox;
+        private TextBox loanYearsBox;
+        private Label amountLabel;
+        private Label yearsLabel;
+        private Button calculateButton;
+        private Label serverConnectingLabel;
+        private Label calculateValidation;
+        private ColumnHeader No;
+        private ColumnHeader Total;
+        private ColumnHeader Capital;
+        private ColumnHeader Interest;
     }
 }
 

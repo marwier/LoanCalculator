@@ -1,22 +1,24 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using InterviewTask.Models;
+
 namespace LoanCalculatorDesktop
 {
-    using InterviewTask.Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Threading.Tasks;
-
-    class WebApiConnector
+    internal class WebApiConnector
     {
-        private HttpClient _client = new HttpClient();
-
-        private LoanCalcDesktop _currentForm;
+        private readonly HttpClient _client = new HttpClient();
+        private readonly LoanCalcDesktop _currentForm;
 
         public WebApiConnector(LoanCalcDesktop form, string webApiLink)
         {
-            _currentForm = form;
+            if (string.IsNullOrEmpty(webApiLink))
+                throw new ArgumentException(@"Value cannot be null or empty.", nameof(webApiLink));
+
+            _currentForm = form ?? throw new ArgumentNullException(nameof(form));
 
             _client.BaseAddress = new Uri(webApiLink);
             _client.DefaultRequestHeaders.Accept.Clear();
@@ -24,23 +26,23 @@ namespace LoanCalculatorDesktop
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task GetPayments(UInt16 LoanTypeID, UInt16 NumberOfYears)
+        public async Task GetPayments(ushort loanTypeId, ushort numberOfYears)
         {
             await _currentForm.PopulateListView(
                 await PerformActionAsync<List<Payment>>(
-                    $"api/Loan/CalculatePayments?LoanTypeID={LoanTypeID}&NumberOfYears={NumberOfYears}"));
+                    $"api/Loan/CalculatePayments?LoanTypeID={loanTypeId}&NumberOfYears={numberOfYears}"));
         }
 
-        public async Task<decimal> GetInterest(UInt16 LoanTypeID)
+        public async Task<decimal> GetInterest(ushort loanTypeId)
         {
             return await PerformActionAsync<decimal>(
-                $"api/Loan/GetInterest?LoanTypeID={LoanTypeID}");
+                $"api/Loan/GetInterest?LoanTypeID={loanTypeId}");
         }
 
-        public async Task<decimal> GetAmount(UInt16 LoanTypeID)
+        public async Task<decimal> GetAmount(ushort loanTypeId)
         {
             return await PerformActionAsync<decimal>(
-                $"api/Loan/GetAmount?LoanTypeID={LoanTypeID}");
+                $"api/Loan/GetAmount?LoanTypeID={loanTypeId}");
         }
 
         public async Task GetLoanTypes()
@@ -56,8 +58,7 @@ namespace LoanCalculatorDesktop
 
             if (response.IsSuccessStatusCode)
                 return await response.Content.ReadAsAsync<T>();
-            else
-                throw new Exception($"Code {(int)response.StatusCode}: {response.ReasonPhrase.ToString()}");
+            throw new Exception($"Code {(int)response.StatusCode}: {response.ReasonPhrase}");
         }
     }
 }
