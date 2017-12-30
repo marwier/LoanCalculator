@@ -30,19 +30,19 @@ namespace LoanCalculatorDesktop
         {
             await _currentForm.PopulateListView(
                 await PerformActionAsync<List<Payment>>(
-                    $"api/Loan/CalculatePayments?LoanTypeID={loanTypeId}&NumberOfYears={numberOfYears}"));
+                    $"api/Loan/ReturnPayments?LoanTypeId={loanTypeId}&NumberOfYears={numberOfYears}"));
         }
 
         public async Task<decimal> GetInterest(ushort loanTypeId)
         {
             return await PerformActionAsync<decimal>(
-                $"api/Loan/GetInterest?LoanTypeID={loanTypeId}");
+                $"api/Loan/GetInterest?LoanTypeId={loanTypeId}");
         }
 
         public async Task<decimal> GetAmount(ushort loanTypeId)
         {
             return await PerformActionAsync<decimal>(
-                $"api/Loan/GetAmount?LoanTypeID={loanTypeId}");
+                $"api/Loan/GetAmount?LoanTypeId={loanTypeId}");
         }
 
         public async Task GetLoanTypes()

@@ -1,29 +1,28 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web.Http;
+using InterviewTask.Data;
+using InterviewTask.Models;
+
 namespace InterviewTask.Controllers
 {
-    using InterviewTask.Data;
-    using InterviewTask.Models;
-    using InterviewTask.Models.LoanModels;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net;
-    using System.Web.Http;
-
     public class LoanController : ApiController
     {
-        private MockDB _database = new MockDB();
+        private readonly MockDb _database = new MockDb();
 
         [HttpGet]
-        public Decimal GetInterest(UInt16 LoanTypeID)
+        public decimal GetInterest(ushort loanTypeId)
         {
-            return getLoan(LoanTypeID).Interest;
+            return GetLoan(loanTypeId).Interest;
         }
 
         [HttpGet]
-        public Decimal GetAmount(UInt16 LoanTypeID)
+        public decimal GetAmount(ushort loanTypeId)
         {
-            return getLoan(LoanTypeID).TotalAmount;
+            return GetLoan(loanTypeId).TotalAmount;
         }
 
         [HttpGet]
@@ -33,25 +32,27 @@ namespace InterviewTask.Controllers
         }
 
         [HttpGet]
-        public List<Payment> CalculatePayments(UInt16 LoanTypeID, UInt16 NumberOfYears)
+        public List<Payment> ReturnPayments(ushort loanTypeId, ushort numberOfYears)
         {
+            var selectedLoan = GetLoan(loanTypeId);
+
             try
             {
-                return getLoan(LoanTypeID).ReturnPayments(NumberOfYears);
+                return selectedLoan.ReturnPayments(numberOfYears);
             }
-            catch
+            catch (ArgumentOutOfRangeException)
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
         }
 
-        private Loan getLoan(UInt16 LoanTypeID)
+        private Loan GetLoan(ushort loanTypeId)
         {
             try
             {
-                return _database.Loans[LoanTypeID].Loan;
+                return _database.Loans.Single(x => loanTypeId.Equals(x.LoanTypeId)).Loan;
             }
-            catch
+            catch (InvalidOperationException)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }

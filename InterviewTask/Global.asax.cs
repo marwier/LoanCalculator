@@ -1,9 +1,9 @@
 ﻿
+using System.Web;
+using System.Web.Http;
+
 namespace InterviewTask
 {
-    using System.Web;
-    using System.Web.Http;
-
     public class MvcApplication : HttpApplication
     {
         protected void Application_Start()

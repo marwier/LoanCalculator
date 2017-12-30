@@ -51,7 +51,7 @@ namespace LoanCalculatorDesktop
 
         private async void ComboBox_SelectedItemChanged(object sender, EventArgs e)
         {
-            var loanTypeId = ((LoanType)loanTypeComboBox.SelectedItem).LoanTypeID;
+            var loanTypeId = ((LoanType)loanTypeComboBox.SelectedItem).LoanTypeId;
 
             interestTextBox.Text = (await _connector.GetInterest(loanTypeId)).ToString("P");
             loanAmountBox.Text = (await _connector.GetAmount(loanTypeId)).ToString("0.00");
@@ -82,7 +82,7 @@ namespace LoanCalculatorDesktop
         private ListViewItem PopulateListViewRow(Payment payment)
         {
             // Payment's ID starts from 0 - incrementing only for display purposes.
-            var newRow = new ListViewItem((payment.PaymentID + 1).ToString());
+            var newRow = new ListViewItem((payment.PaymentId + 1).ToString());
 
             newRow.SubItems.AddRange(new[]
             {
@@ -111,7 +111,7 @@ namespace LoanCalculatorDesktop
             // validation part
             try
             {
-                loanTypeId = ((LoanType)loanTypeComboBox.SelectedItem).LoanTypeID;
+                loanTypeId = ((LoanType)loanTypeComboBox.SelectedItem).LoanTypeId;
                 numberOfYears = Parse(loanYearsBox.Text);
 
                 calculateValidation.Hide();

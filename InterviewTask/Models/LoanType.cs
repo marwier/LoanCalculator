@@ -1,18 +1,16 @@
 ﻿
+using System.Runtime.Serialization;
+
 namespace InterviewTask.Models
 {
-    using InterviewTask.Models.LoanModels;
-    using System;
-    using System.Runtime.Serialization;
-
     [DataContract]
     public class LoanType
     {
         [DataMember]
-        public UInt16 LoanTypeID { get; set; }
+        public ushort LoanTypeId { get; set; }
 
         [DataMember]
-        public String LoanText { get; set; }
+        public string LoanText { get; set; }
 
         [IgnoreDataMember]
         public Loan Loan { get; set; }
@@ -20,7 +18,7 @@ namespace InterviewTask.Models
         // override required for ComboBox in win forms
         public override string ToString()
         {
-            return $"{LoanTypeID + 1}: {LoanText}";
+            return $"{LoanTypeId + 1}: {LoanText}";
         }
     }
 }

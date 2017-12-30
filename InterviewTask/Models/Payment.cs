@@ -1,23 +1,22 @@
 ﻿
+using System.Runtime.Serialization;
+
 namespace InterviewTask.Models
 {
-    using System;
-    using System.Runtime.Serialization;
-
     [DataContract]
     public class Payment
     {
         [DataMember]
-        public UInt16 PaymentID { get; set; }
+        public ushort PaymentId { get; set; }
 
         [DataMember]
-        public Decimal Capital { get; set; }
+        public decimal Capital { get; set; }
 
         [DataMember]
-        public Decimal Interest { get; set; }
+        public decimal Interest { get; set; }
 
         [DataMember]
-        public Decimal Total
+        public decimal Total
         {
             get
             {

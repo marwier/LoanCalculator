@@ -1,11 +1,11 @@
 ﻿
 function getSelectedLoanData() {
-    var selectedLoanID = document.getElementById("loanTypeDropDownList").value;
+    var selectedLoanId = document.getElementById("loanTypeDropDownList").value;
 
-    if (selectedLoanID != "") {
+    if (selectedLoanId !== "") {
         // get interest
         $.getJSON('../api/Loan/GetInterest', {
-            LoanTypeID: selectedLoanID
+            LoanTypeId: selectedLoanId
         }).done(
             function (interest) {
                 document.getElementById("interestField").value = interest.toLocaleString("en",
@@ -17,7 +17,7 @@ function getSelectedLoanData() {
         // get total amount
 
         $.getJSON('../api/Loan/GetAmount', {
-            LoanTypeID: selectedLoanID
+            LoanTypeId: selectedLoanId
         }).done(
             function (amount) {
                 document.getElementById("totalAmountField").value = amount.toLocaleString("en",
@@ -34,19 +34,23 @@ function getSelectedLoanData() {
 }
 
 function calculateLoan() {
-    var selectedLoanID = document.getElementById("loanTypeDropDownList").value;
+    var selectedLoanId = document.getElementById("loanTypeDropDownList").value;
     var years = document.getElementById("totalYearsField").value;
 
-    $('#calculationsTable').find("tr:gt(0)").remove(); // remove all table rows greater than index 0
+    $("#calculationsTable").find("tr:gt(0)").remove(); // remove all table rows greater than index 0
 
-    $.getJSON('../api/Loan/CalculatePayments',
+    // disable button while calculating
+    var button = document.getElementById("calculateButton");
+    button.firstChild.data = "Calculating...";
+    button.disabled = true;
+
+
+    $.getJSON('../api/Loan/ReturnPayments',
         {
-            LoanTypeID: selectedLoanID,
+            LoanTypeId: selectedLoanId,
             NumberOfYears: years
         }).done(
         function (data) {
-
-
             $(data).each(function (index, obj) {
                 var row = document.getElementById("calculationsTable").insertRow();
 
@@ -74,6 +78,9 @@ function calculateLoan() {
                         currency: 'USD'
                     });
             });
+
+            button.firstChild.data = "Calculate!";
+            button.disabled = false;
         });
 }
 
@@ -88,7 +95,7 @@ $(function () {
                     var option = document.createElement('option');
 
                     option.text = (index + 1) + ". " + obj.LoanText;
-                    option.value = obj.LoanTypeID;
+                    option.value = obj.LoanTypeId;
 
                     dropDownList.appendChild(option);
                 });
@@ -98,7 +105,7 @@ $(function () {
 $(function () {
     $("#loanTypeDropDownList, #totalYearsField").bind("change keyup",
         function () {
-            if ($("#loanTypeDropDownList").val() != "" && $("#totalYearsField").val() != "" &&
+            if ($("#loanTypeDropDownList").val() !== "" && $("#totalYearsField").val() !== "" &&
                 !isNaN(parseInt($("#totalYearsField").val())) && isFinite($("#totalYearsField").val())) {
                 document.getElementById("calculateButton").disabled = false;
             } else {
