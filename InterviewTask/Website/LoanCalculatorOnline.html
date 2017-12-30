@@ -6,54 +6,73 @@
     <title>Online loan calculator</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
-    <script src="scripts.js"></script>
+    <!-- loading circle -->
+    <div id="loadingPageContentID" class="loader"></div>
 
-    <div class="container">
-        <form>
-            <div class="form-group row">
+    <!-- page content -->
+    <div id="pageContentID" class="pageContent" hidden>
 
-                <div class="col-xs-2">
-                    <label for="exampleFormControlSelect1">Loan type:</label>
-                    <select class="form-control" id="loanTypeDropDownList" onchange="getSelectedLoanData()">
-                        <option value="">None</option>
-                    </select>
-                </div>
+        <!-- title -->
+        <div class="pageTitle">
+            <h1>Loan calculator online</h1>
+            by Marek Wierzbicki
+        </div>
 
-                <div class="col-xs-2">
-                    <label>Interest:</label>
-                    <input type="text" id="interestField" class="form-control" disabled>
-                </div>
+        <!-- user input -->
+        <div class="formContainer">
 
-                <div class="col-xs-2">
-                    <label>Amount:</label>
-                    <input type="text" id="totalAmountField" class="form-control" disabled>
-                </div>
+            <span class="field">
+                <label for="exampleFormControlSelect1">Loan type:</label>
+                <select class="form-control" id="loanTypeDropDownListID" onchange="getSelectedLoanData()">
+                    <option value="">None</option>
+                </select>
+            </span>
 
-                <div class="col-xs-2">
-                    <label>Years:</label>
-                    <input type="text" id="totalYearsField" class="form-control" placeholder="Enter number of years" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-                </div>
-            </div>
+            <span class="field">
+                <label>Interest:</label>
+                <input type="text" id="interestFieldID" class="form-control" disabled>
+            </span>
 
-            <div class="form-group row">
-                <button type="button" id="calculateButton" class="btn btn-default center-block" onclick="calculateLoan()" disabled>Calculate!</button>
-            </div>
-        </form>
+            <span class="field">
+                <label>Amount:</label>
+                <input type="text" id="totalAmountFieldID" class="form-control" disabled>
+            </span>
 
-        <table class="table table-bordered" id="calculationsTable">
-            <thead>
-                <tr>
-                    <td>No</td>
-                    <td>Total</td>
-                    <td>Capital</td>
-                    <td>Interest</td>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+            <span class="field">
+                <label>Years:</label>
+                <input type="text" id="totalYearsFieldID" class="form-control" placeholder="Enter number of years" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+            </span>
+        </div>
+
+        <!-- calculate button -->
+        <div class="buttonDiv">
+            <button type="button" id="calculateButtonID" class="button" onclick="calculateLoan()" disabled>Calculate!</button>
+        </div>
+
+        <!-- loading circle - calculations -->
+        <div id="loadingObject" class="loader" hidden></div>
+
+        <!-- table -->
+        <div class="resultContainer">
+            <table class="table table-bordered" id="calculationsTableID">
+                <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>Total</td>
+                        <td>Capital</td>
+                        <td>Interest</td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
+
+    <!-- scripts -->
+    <script src="scripts.js"></script>
 </body>
 </html>

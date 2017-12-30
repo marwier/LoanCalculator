@@ -108,6 +108,7 @@
     <Content Include="Website\LoanCalculatorOnline.html" />
     <Content Include="Website\scripts.js" />
     <Content Include="Web.config" />
+    <Content Include="Website\styles.css" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
