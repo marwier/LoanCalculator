@@ -14,11 +14,6 @@ namespace LoanCalculatorDesktop
 
         private LoanCalcDesktop _currentForm;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="form">Used to get current form fields</param>
-        /// <param name="webApiLink">Link to web server - by now it's localhost</param>
         public WebApiConnector(LoanCalcDesktop form, string webApiLink)
         {
             _currentForm = form;
@@ -29,67 +24,40 @@ namespace LoanCalculatorDesktop
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        /// <summary>
-        /// Seds web request to get list of payments for specified loan.
-        /// Used to fill interest list view in main view.
-        /// </summary>
-        /// <param name="LoanTypeID">ID of loan</param>
-        /// <param name="TotalAmount">Loan amount</param>
-        /// <param name="NumberOfYears">Loan years</param>
         public async Task GetPayments(UInt16 LoanTypeID, UInt16 NumberOfYears)
         {
-            var response = await _client.GetAsync($"api/Loan/CalculatePayments?LoanTypeID={LoanTypeID}&NumberOfYears={NumberOfYears}");
-
-            if (response.IsSuccessStatusCode)
-                await _currentForm.PopulateListView(await response.Content.ReadAsAsync<List<Payment>>());
-            else
-                throw new HttpRequestException("Could not connect to server!");
+            await _currentForm.PopulateListView(
+                await PerformActionAsync<List<Payment>>(
+                    $"api/Loan/CalculatePayments?LoanTypeID={LoanTypeID}&NumberOfYears={NumberOfYears}"));
         }
 
-        /// <summary>
-        /// Seds web request to get interest of specified loan. 
-        /// Used to fill interest textbox in main view.
-        /// </summary>
-        /// <param name="LoanTypeID">ID of loan</param>
-        /// <returns>Interest</returns>
         public async Task<decimal> GetInterest(UInt16 LoanTypeID)
         {
-            var response = await _client.GetAsync($"api/Loan/GetInterest?LoanTypeID={LoanTypeID}");
-
-            if (response.IsSuccessStatusCode)
-                return await response.Content.ReadAsAsync<Decimal>();
-            else
-                throw new HttpRequestException("Could not connect to server!");
+            return await PerformActionAsync<decimal>(
+                $"api/Loan/GetInterest?LoanTypeID={LoanTypeID}");
         }
 
-        /// <summary>
-        /// Seds web request to get amount of specified loan. 
-        /// Used to fill interest textbox in main view.
-        /// </summary>
-        /// <param name="LoanTypeID">ID of loan</param>
-        /// <returns>Interest</returns>
         public async Task<decimal> GetAmount(UInt16 LoanTypeID)
         {
-            var response = await _client.GetAsync($"api/Loan/GetAmount?LoanTypeID={LoanTypeID}");
-
-            if (response.IsSuccessStatusCode)
-                return await response.Content.ReadAsAsync<Decimal>();
-            else
-                throw new HttpRequestException("Could not connect to server!");
+            return await PerformActionAsync<decimal>(
+                $"api/Loan/GetAmount?LoanTypeID={LoanTypeID}");
         }
 
-        /// <summary>
-        /// Sends web request to get loan types from server. 
-        /// Used to populate combobox when desktop app starts
-        /// </summary>
         public async Task GetLoanTypes()
         {
-            var response = await _client.GetAsync($"api/Loan/GetLoanTypes");
+            _currentForm.PopulateComboBox(
+                await PerformActionAsync<List<LoanType>>(
+                    $"api/Loan/GetLoanTypes"));
+        }
+
+        private async Task<T> PerformActionAsync<T>(string requestUrl)
+        {
+            var response = await _client.GetAsync(requestUrl);
 
             if (response.IsSuccessStatusCode)
-                _currentForm.PopulateComboBox(await response.Content.ReadAsAsync<List<LoanType>>());
+                return await response.Content.ReadAsAsync<T>();
             else
-                throw new HttpRequestException("Could not connect to server!");
+                throw new Exception($"Code {(int)response.StatusCode}: {response.ReasonPhrase.ToString()}");
         }
     }
 }

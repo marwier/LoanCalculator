@@ -16,22 +16,17 @@ namespace LoanCalculatorDesktop
             get => "http://localhost:55735/";
         }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
         public LoanCalcDesktop()
         {
             _connector = new WebApiConnector(this, ServerUrl);
             InitializeComponent();
         }
 
-        /// <summary>
-        /// On load action
-        /// </summary>
         private async void loanCalcDesktop_Load(object sender, EventArgs e)
         {
             try
             {
+                UseWaitCursor = true;
                 await _connector.GetLoanTypes();
 
                 serverConnectingLabel.Hide();
@@ -56,11 +51,8 @@ namespace LoanCalculatorDesktop
         {
             var loanTypeID = (loanTypeComboBox.SelectedItem as LoanType).LoanTypeID;
 
-            decimal interest = await _connector.GetInterest(loanTypeID);
-            decimal amount = await _connector.GetAmount(loanTypeID);
-
-            interestTextBox.Text = interest.ToString("P");
-            loanAmountBox.Text = amount.ToString("0.00");
+            interestTextBox.Text = (await _connector.GetInterest(loanTypeID)).ToString("P");
+            loanAmountBox.Text = (await _connector.GetAmount(loanTypeID)).ToString("0.00");
 
             if (loanTypeComboBox.SelectedItem == null)
                 calculateButton.Enabled = false;
@@ -141,9 +133,9 @@ namespace LoanCalculatorDesktop
 
                 serverConnectingLabel.Hide();
             }
-            catch
+            catch (Exception ex)
             {
-                serverConnectingLabel.Text = "Too long response time";
+                serverConnectingLabel.Text = ex.Message;
             }
             finally
             {
@@ -164,7 +156,7 @@ namespace LoanCalculatorDesktop
 
         private void loanYearsBox_valueChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(loanYearsBox.Text))
+            if (string.IsNullOrEmpty(loanYearsBox.Text) || !int.TryParse(loanYearsBox.Text, out int value))
                 calculateButton.Enabled = false;
             else if (loanTypeComboBox.SelectedItem != null)
                 calculateButton.Enabled = true;
