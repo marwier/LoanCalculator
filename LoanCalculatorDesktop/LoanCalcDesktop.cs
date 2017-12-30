@@ -126,7 +126,7 @@ namespace LoanCalculatorDesktop
             }
 
             // waiting for response
-            serverConnectingLabel.Text = @"Waiting for server response.\nPlease wait";
+            serverConnectingLabel.Text = "Waiting for server response.\nPlease wait";
             serverConnectingLabel.Show();
 
             try

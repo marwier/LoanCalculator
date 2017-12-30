@@ -69,6 +69,7 @@ namespace LoanCalculatorDesktop
             this.Total,
             this.Capital,
             this.Interest});
+            this.paymentListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.paymentListView.ForeColor = System.Drawing.SystemColors.WindowText;
             this.paymentListView.Location = new System.Drawing.Point(12, 101);
             this.paymentListView.Name = "paymentListView";
@@ -81,21 +82,22 @@ namespace LoanCalculatorDesktop
             // No
             // 
             this.No.Text = "No.";
+            this.No.Width = 55;
             // 
             // Total
             // 
             this.Total.Text = "Total";
-            this.Total.Width = 120;
+            this.Total.Width = 155;
             // 
             // Capital
             // 
             this.Capital.Text = "Capital";
-            this.Capital.Width = 120;
+            this.Capital.Width = 155;
             // 
             // Interest
             // 
             this.Interest.Text = "Interest";
-            this.Interest.Width = 120;
+            this.Interest.Width = 155;
             // 
             // interestTextBox
             // 
@@ -122,10 +124,10 @@ namespace LoanCalculatorDesktop
             // loanAmountBox
             // 
             this.loanAmountBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.loanAmountBox.Location = new System.Drawing.Point(393, 12);
+            this.loanAmountBox.Location = new System.Drawing.Point(371, 12);
             this.loanAmountBox.Name = "loanAmountBox";
             this.loanAmountBox.ReadOnly = true;
-            this.loanAmountBox.Size = new System.Drawing.Size(100, 30);
+            this.loanAmountBox.Size = new System.Drawing.Size(135, 30);
             this.loanAmountBox.TabIndex = 4;
             this.loanAmountBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.loanAmountBox.UseWaitCursor = true;
@@ -133,9 +135,9 @@ namespace LoanCalculatorDesktop
             // loanYearsBox
             // 
             this.loanYearsBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.loanYearsBox.Location = new System.Drawing.Point(393, 53);
+            this.loanYearsBox.Location = new System.Drawing.Point(371, 53);
             this.loanYearsBox.Name = "loanYearsBox";
-            this.loanYearsBox.Size = new System.Drawing.Size(100, 30);
+            this.loanYearsBox.Size = new System.Drawing.Size(135, 30);
             this.loanYearsBox.TabIndex = 5;
             this.loanYearsBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.loanYearsBox.UseWaitCursor = true;
@@ -146,7 +148,7 @@ namespace LoanCalculatorDesktop
             // 
             this.amountLabel.AutoSize = true;
             this.amountLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.amountLabel.Location = new System.Drawing.Point(258, 19);
+            this.amountLabel.Location = new System.Drawing.Point(245, 19);
             this.amountLabel.Name = "amountLabel";
             this.amountLabel.Size = new System.Drawing.Size(108, 20);
             this.amountLabel.TabIndex = 6;
@@ -157,16 +159,17 @@ namespace LoanCalculatorDesktop
             // 
             this.yearsLabel.AutoSize = true;
             this.yearsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.yearsLabel.Location = new System.Drawing.Point(272, 60);
+            this.yearsLabel.Location = new System.Drawing.Point(259, 60);
             this.yearsLabel.Name = "yearsLabel";
             this.yearsLabel.Size = new System.Drawing.Size(94, 20);
             this.yearsLabel.TabIndex = 7;
             this.yearsLabel.Text = "Total Years";
             this.yearsLabel.UseWaitCursor = true;
             // 
-            // calculateButton
+            // calculateButtonID
             // 
             this.calculateButton.Enabled = false;
+            this.calculateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.calculateButton.Location = new System.Drawing.Point(528, 12);
             this.calculateButton.Name = "calculateButton";
             this.calculateButton.Size = new System.Drawing.Size(161, 71);
@@ -206,8 +209,9 @@ namespace LoanCalculatorDesktop
             // 
             // LoanCalcDesktop
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(701, 484);
             this.Controls.Add(this.calculateValidation);
             this.Controls.Add(this.serverConnectingLabel);
@@ -220,8 +224,10 @@ namespace LoanCalculatorDesktop
             this.Controls.Add(this.interestTextBox);
             this.Controls.Add(this.paymentListView);
             this.Controls.Add(this.loanTypeComboBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoanCalcDesktop";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Loan Calculator - Desktop";
             this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.LoanCalcDesktop_Load);
