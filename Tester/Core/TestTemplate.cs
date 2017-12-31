@@ -3,9 +3,9 @@ using System.Linq;
 using System.Reflection;
 using Tester.Tools.Logs;
 
-namespace Tester.TestCases.Core
+namespace Tester.Core
 {
-    public class TestTemplate
+    public static class TestTemplate
     {
         private const string TestLogHistoryPath = @"C:\TestingHistory";
 
@@ -15,7 +15,7 @@ namespace Tester.TestCases.Core
 
             if (testCase == null)
             {
-                TestLog.AddMessage($"Saving error log...", TestLog.LogResult.System);
+                TestLog.AddMessage("Saving error log...", TestLog.LogResult.System);
                 TestLog.SaveLog(
                     $@"{TestLogHistoryPath}\_Errors\{DateTime.Now:hhmmss_ddMMyyyy}_log.xml");
                 Environment.Exit(1);
@@ -40,7 +40,7 @@ namespace Tester.TestCases.Core
             }
             finally
             {
-                TestLog.AddMessage($"Finishing execution and saving logs...", TestLog.LogResult.System);
+                TestLog.AddMessage("Finishing execution and saving logs...", TestLog.LogResult.System);
                 TestLog.SaveLog(
                     $@"{TestLogHistoryPath}\{testCase.GetType().Name}\{DateTime.Now:hhmmss_ddMMyyyy}_log.xml");
             }
@@ -50,7 +50,7 @@ namespace Tester.TestCases.Core
         {
             if (string.IsNullOrEmpty(testName))
             {
-                TestLog.AddMessage($"Provided empty test case name. Please verify arguments.",
+                TestLog.AddMessage("Provided empty test case name. Please verify arguments.",
                     TestLog.LogResult.Blocked);
                 return null;
             }
@@ -65,7 +65,7 @@ namespace Tester.TestCases.Core
             }
             catch (InvalidOperationException)
             {
-                TestLog.AddMessage($"Could not find selected test case. Please verify arguments.",
+                TestLog.AddMessage("Could not find selected test case. Please verify arguments.",
                     TestLog.LogResult.Blocked);
                 return null;
             }

@@ -111,18 +111,15 @@
     <Content Include="Website\styles.css" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Data\MockDB.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoanModels\ILoanModel.cs" />
     <Compile Include="Models\Loan.cs" />
+    <Compile Include="Models\LoanModels\ILoanModel.cs" />
     <Compile Include="Models\LoanModels\MonthlyCapitalization.cs" />
-    <Compile Include="Models\LoanType.cs" />
-    <Compile Include="Models\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -134,7 +131,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CommonModels\CommonModels.csproj">
+      <Project>{48B4681E-3C0C-4F8A-A513-6C6A05139A4D}</Project>
+      <Name>CommonModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

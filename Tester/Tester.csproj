@@ -73,9 +73,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\InterviewTask\WebService.csproj">
-      <Project>{91AD72FE-F3AF-4B17-A714-248C617FE553}</Project>
-      <Name>WebService</Name>
+    <ProjectReference Include="..\CommonModels\CommonModels.csproj">
+      <Project>{48B4681E-3C0C-4F8A-A513-6C6A05139A4D}</Project>
+      <Name>CommonModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,4 @@
-﻿namespace Tester.TestCases.Core
+﻿namespace Tester.Core
 {
     public interface ITestCase
     {

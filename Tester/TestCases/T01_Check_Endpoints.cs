@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using Tester.TestCases.Core;
+using Tester.Core;
 using Tester.Tools.IISExpress;
 using Tester.Tools.Logs;
 using Tester.Tools.WebHelpers;
@@ -19,7 +19,7 @@ namespace Tester.TestCases
         public void Run()
         {
             var urlToTest = $"{ServerAddress}";
-            TestLog.AddMessage($"Checking response: server address and no endpoints");
+            TestLog.AddMessage("Checking response: server address and no endpoints");
             WebHelpers.VerifyEndpoints(urlToTest, HttpStatusCode.Forbidden);
 
             urlToTest = $"{ServerAddress}/IncorrectEndpoint";

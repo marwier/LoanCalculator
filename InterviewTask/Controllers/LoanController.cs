@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using CommonModels;
 using InterviewTask.Data;
 using InterviewTask.Models;
 
@@ -28,7 +29,7 @@ namespace InterviewTask.Controllers
         [HttpGet]
         public List<LoanType> GetLoanTypes()
         {
-            return _database.Loans.ToList();
+            return _database.LoanTypes.ToList();
         }
 
         [HttpGet]
@@ -50,7 +51,7 @@ namespace InterviewTask.Controllers
         {
             try
             {
-                return _database.Loans.Single(x => loanTypeId.Equals(x.LoanTypeId)).Loan;
+                return _database.Loans[loanTypeId];
             }
             catch
             {

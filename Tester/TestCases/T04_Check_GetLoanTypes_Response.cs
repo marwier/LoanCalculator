@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using InterviewTask.Models;
-using Tester.TestCases.Core;
+using CommonModels;
+using Tester.Core;
 using Tester.Tools.IISExpress;
 using Tester.Tools.Logs;
 using Tester.Tools.WebHelpers;
@@ -21,7 +21,7 @@ namespace Tester.TestCases
 
         public void Run()
         {
-            TestLog.AddMessage($"Checking response correct endpoint");
+            TestLog.AddMessage("Checking response correct endpoint");
             var urlToTest = $"{ServerAddress}/api/Loan/GetLoanTypes";
 
             if (WebHelpers.VerifyEndpoints(urlToTest, HttpStatusCode.OK))
@@ -31,7 +31,7 @@ namespace Tester.TestCases
                     var entireContent = WebHelpers.GetJsonPageContent<List<LoanType>>(response);
                     var firstRecord = entireContent.First();
 
-                    var expectedNumberOfElements = 7;
+                    var expectedNumberOfElements = 8;
                     var expectedId = 0;
                     var expectedText = "Coffee express";
 

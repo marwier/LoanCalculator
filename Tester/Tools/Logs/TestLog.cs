@@ -5,10 +5,10 @@ using System.Xml.Serialization;
 
 namespace Tester.Tools.Logs
 {
-    public class TestLog
+    public static class TestLog
     {
         private static List<Log> _logs;
-        protected static List<Log> Logs => _logs ?? (_logs = new List<Log>());
+        private static List<Log> Logs => _logs ?? (_logs = new List<Log>());
 
         public enum LogResult
         {
@@ -29,7 +29,7 @@ namespace Tester.Tools.Logs
             Console.WriteLine($"[{dateString}] {message}");
             Console.ResetColor();
 
-            Logs.Add(new Log()
+            Logs.Add(new Log
             {
                 Message = message,
                 Result = result,
@@ -60,7 +60,7 @@ namespace Tester.Tools.Logs
                 serializer.Serialize(stream, Logs);
             }
 
-            TestLog.AddMessage($"Saved file to: {path}", LogResult.System);
+            AddMessage($"Saved file to: {path}", LogResult.System);
 
             Logs.Clear();
         }

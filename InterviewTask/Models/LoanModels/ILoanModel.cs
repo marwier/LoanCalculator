@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using CommonModels;
 
 namespace InterviewTask.Models.LoanModels
 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using InterviewTask.Models;
+using CommonModels;
 
 namespace LoanCalculatorDesktop
 {
@@ -49,7 +49,7 @@ namespace LoanCalculatorDesktop
         {
             _currentForm.PopulateComboBox(
                 await PerformActionAsync<List<LoanType>>(
-                    $"api/Loan/GetLoanTypes"));
+                    "api/Loan/GetLoanTypes"));
         }
 
         private async Task<T> PerformActionAsync<T>(string requestUrl)

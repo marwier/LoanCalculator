@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using Tester.TestCases.Core;
+using Tester.Core;
 using Tester.Tools.IISExpress;
 using Tester.Tools.Logs;
 using Tester.Tools.WebHelpers;
@@ -18,7 +18,7 @@ namespace Tester.TestCases
 
         public void Run()
         {
-            TestLog.AddMessage($"Checking response for existing value - first record");
+            TestLog.AddMessage("Checking response for existing value - first record");
             var urlToTest = $"{ServerAddress}/api/Loan/GetAmount?LoanTypeID=0";
 
             if (WebHelpers.VerifyEndpoints(urlToTest, HttpStatusCode.OK))
@@ -47,12 +47,12 @@ namespace Tester.TestCases
             WebHelpers.VerifyEndpoints(urlToTest, HttpStatusCode.BadRequest);
 
 
-            TestLog.AddMessage($"Checking response for bad id value - value lower than 0");
+            TestLog.AddMessage("Checking response for bad id value - value lower than 0");
             urlToTest = $"{ServerAddress}/api/Loan/GetAmount?LoanTypeID={-1}";
             WebHelpers.VerifyEndpoints(urlToTest, HttpStatusCode.BadRequest);
 
 
-            TestLog.AddMessage($"Checking response for bad id value - char value");
+            TestLog.AddMessage("Checking response for bad id value - char value");
             urlToTest = $"{ServerAddress}/api/Loan/GetAmount?LoanTypeID=test";
             WebHelpers.VerifyEndpoints(urlToTest, HttpStatusCode.BadRequest);
         }

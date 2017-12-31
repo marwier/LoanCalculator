@@ -5,7 +5,7 @@ using Tester.Tools.Logs;
 
 namespace Tester.Tools.WebHelpers
 {
-    public class WebHelpers
+    public static class WebHelpers
     {
         public static bool VerifyEndpoints(string urlToTest, HttpStatusCode expectedStatusCode)
         {
@@ -25,7 +25,7 @@ namespace Tester.Tools.WebHelpers
         }
 
 
-        public static bool VerifyResponseStatusCode(WebResponse response, HttpStatusCode expectedCode)
+        private static bool VerifyResponseStatusCode(WebResponse response, HttpStatusCode expectedCode)
         {
             if (((HttpWebResponse)response).StatusCode == expectedCode)
             {
@@ -34,13 +34,11 @@ namespace Tester.Tools.WebHelpers
                     TestLog.LogResult.Passed);
                 return true;
             }
-            else
-            {
-                TestLog.AddMessage(
-                    $"Incorrect status code ({(int)((HttpWebResponse)response).StatusCode}: {((HttpWebResponse)response).StatusCode}) were returned. Service is not working as expected.",
-                    TestLog.LogResult.Failed);
-                return false;
-            }
+
+            TestLog.AddMessage(
+                $"Incorrect status code ({(int)((HttpWebResponse)response).StatusCode}: {((HttpWebResponse)response).StatusCode}) were returned. Service is not working as expected.",
+                TestLog.LogResult.Failed);
+            return false;
         }
 
         public static T GetJsonPageContent<T>(WebResponse response)
