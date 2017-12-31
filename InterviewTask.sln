@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebService", "InterviewTask
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanCalculatorDesktop", "LoanCalculatorDesktop\LoanCalculatorDesktop.csproj", "{CB8F41AB-C40B-45DB-AD9C-D3B8070E6BBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "Tester\Tester.csproj", "{43DA8D12-5988-45C7-9012-DF2BA937B628}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CB8F41AB-C40B-45DB-AD9C-D3B8070E6BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB8F41AB-C40B-45DB-AD9C-D3B8070E6BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB8F41AB-C40B-45DB-AD9C-D3B8070E6BBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43DA8D12-5988-45C7-9012-DF2BA937B628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43DA8D12-5988-45C7-9012-DF2BA937B628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43DA8D12-5988-45C7-9012-DF2BA937B628}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43DA8D12-5988-45C7-9012-DF2BA937B628}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
