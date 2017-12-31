@@ -32,9 +32,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Web.Administration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,16 +57,26 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCases\T01_Check_GetLoanTypes_Request.cs" />
+    <Compile Include="TestCases\T01_Check_Endpoints.cs" />
     <Compile Include="Core\ITestCase.cs" />
     <Compile Include="Core\TestTemplate.cs" />
-    <Compile Include="TestCases\T02_Check_ReturnPayments_Request.cs" />
+    <Compile Include="TestCases\T02_Check_GetInterest_Response.cs" />
+    <Compile Include="TestCases\T03_Check_GetAmount_Response.cs" />
+    <Compile Include="TestCases\T04_Check_GetLoanTypes_Response.cs" />
+    <Compile Include="Tools\IISExpress\IISExpressActions.cs" />
     <Compile Include="Tools\Logs\Log.cs" />
     <Compile Include="Tools\Logs\TestLog.cs" />
+    <Compile Include="Tools\WebHelpers\WebHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\InterviewTask\WebService.csproj">
+      <Project>{91AD72FE-F3AF-4B17-A714-248C617FE553}</Project>
+      <Name>WebService</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

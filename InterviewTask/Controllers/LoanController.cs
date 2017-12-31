@@ -52,7 +52,7 @@ namespace InterviewTask.Controllers
             {
                 return _database.Loans.Single(x => loanTypeId.Equals(x.LoanTypeId)).Loan;
             }
-            catch (InvalidOperationException)
+            catch
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }

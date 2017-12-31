@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using Tester.TestCases;
-using Tester.TestCases.Core;
-using Tester.Tools.Logs;
+﻿using Tester.TestCases.Core;
 
 namespace Tester
 {
@@ -17,7 +7,7 @@ namespace Tester
         static void Main(string[] args)
         {
             TestTemplate.ExecuteTest(args[0]);
-            //TestTemplate.ExecuteTest(new T01_Check_GetLoanTypes_Request());
+            //TestTemplate.ExecuteTest(new T01_Check_Endpoints());
         }
 
 
