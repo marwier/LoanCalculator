@@ -9,15 +9,18 @@ namespace Tester.Core
     {
         private const string TestLogHistoryPath = @"C:\TestingHistory";
 
-        public static void ExecuteTest(string testCaseName)
+        public static void ExecuteTest(string testCaseName, string scenarioName = "")
         {
+            if (!string.IsNullOrEmpty(scenarioName))
+                scenarioName = "\\" + scenarioName;
+
             var testCase = LoadTestCase(testCaseName);
 
             if (testCase == null)
             {
                 TestLog.AddMessage("Saving error log...", TestLog.LogResult.System);
                 TestLog.SaveLog(
-                    $@"{TestLogHistoryPath}\_Errors\{DateTime.Now:hhmmss_ddMMyyyy}_log.xml");
+                    $@"{TestLogHistoryPath}{scenarioName}\_Errors\{DateTime.Now:hhmmsstt_ddMMyyyy}_TestLog.xml");
                 Environment.Exit(1);
             }
 
@@ -42,7 +45,7 @@ namespace Tester.Core
             {
                 TestLog.AddMessage("Finishing execution and saving logs...", TestLog.LogResult.System);
                 TestLog.SaveLog(
-                    $@"{TestLogHistoryPath}\{testCase.GetType().Name}\{DateTime.Now:hhmmss_ddMMyyyy}_log.xml");
+                    $@"{TestLogHistoryPath}{scenarioName}\{testCase.GetType().Name}\{DateTime.Now:hhmmss_ddMMyyyy}_TestLog.xml");
             }
         }
 

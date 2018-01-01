@@ -17,6 +17,8 @@ namespace Tester.TestCases
         {
             if (!IisExpressActions.CheckIfIisExpressIsRunning())
                 IisExpressActions.StartIisExpress();
+            else
+                IisExpressActions.GetRunningProcess();
         }
 
         public void Run()

@@ -23,7 +23,7 @@ namespace Tester.Tools.Logs
 
         public static void AddMessage(string message, LogResult result = LogResult.Default)
         {
-            var dateString = DateTime.Now.ToString("hh:mm:ss dd.MM.yyyy");
+            var dateString = DateTime.Now.ToString("hh:mm:sstt dd.MM.yyyy");
 
             Console.ForegroundColor = (ConsoleColor)result;
             Console.WriteLine($"[{dateString}] {message}");
@@ -35,13 +35,6 @@ namespace Tester.Tools.Logs
                 Result = result,
                 Date = dateString
             });
-        }
-
-        public static void AddMessageWithoutLog(string message)
-        {
-            var dateString = DateTime.Now.ToString("hh:mm:ss dd.MM.yyyy");
-
-            Console.WriteLine($"[{dateString}] {message}");
         }
 
         public static void SaveLog(string path)
