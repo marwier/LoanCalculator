@@ -17,7 +17,8 @@ namespace Tester.Tools.IISExpress
         public static void StartIisExpress()
         {
             TestLog.AddMessage("Starting IIS Express application");
-            Process.Start(@"C:\Program Files (x86)\IIS Express\iisexpress.exe");
+            Process.Start(@"C:\Program Files (x86)\IIS Express\iisexpress.exe",
+                @"/config:""C:\Users\mwier\Documents\Visual Studio 2017\Projects\InterviewTask\.vs\config\applicationhost.config""");
         }
 
         public static void CloseIisExpress()

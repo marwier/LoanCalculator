@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using CommonModels;
 using Tester.Core;
 using Tester.Tools.IISExpress;
@@ -35,7 +32,7 @@ namespace Tester.TestCases
                     var expectedContent = GenerateListOfPaymentsBasedOnModel();
 
                     if ((expectedContent.Count == entireContent.Count) && !(expectedContent.Select(x => x.Total).Except(entireContent.Select((x => x.Total)))).Any())
-                        TestLog.AddMessage($"Received values are identical!", TestLog.LogResult.Passed);
+                        TestLog.AddMessage("Received values are identical!", TestLog.LogResult.Passed);
                     else
                     {
                         TestLog.AddMessage($"Received values are not identical. Number of differences: {expectedContent.Except(entireContent).Count()}", TestLog.LogResult.Failed);
@@ -70,12 +67,12 @@ namespace Tester.TestCases
             WebHelpers.VerifyEndpoints(urlToTest, HttpStatusCode.BadRequest);
 
 
-            TestLog.AddMessage("Checking response for bad ID value - value lower than 0");
+            TestLog.AddMessage("Checking response for bad years value - value lower than 0");
             urlToTest = $"{ServerAddress}/api/Loan/ReturnPayments?LoanTypeID=0&NumberOfYears=-1";
             WebHelpers.VerifyEndpoints(urlToTest, HttpStatusCode.BadRequest);
 
 
-            TestLog.AddMessage("Checking response for bad ID value - char value");
+            TestLog.AddMessage("Checking response for bad years value - char value");
             urlToTest = $"{ServerAddress}/api/Loan/ReturnPayments?LoanTypeID=0&NumberOfYears=test";
             WebHelpers.VerifyEndpoints(urlToTest, HttpStatusCode.BadRequest);
         }
