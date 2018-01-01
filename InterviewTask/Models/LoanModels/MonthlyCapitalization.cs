@@ -18,8 +18,8 @@ namespace InterviewTask.Models.LoanModels
             if (numberOfYears <= 0 || numberOfYears * numberOfMonths > ushort.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(numberOfYears));
 
-            var interestPerMonth = interest / numberOfMonths;
             var capitalizationPeriod = numberOfYears * numberOfMonths;
+            var interestPerMonth = interest / capitalizationPeriod;
             var capitalPerMonth = totalAmount / capitalizationPeriod;
 
             var paymentList = new List<Payment>();

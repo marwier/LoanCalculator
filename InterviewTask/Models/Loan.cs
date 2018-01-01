@@ -9,20 +9,18 @@ namespace InterviewTask.Models
     public class Loan
     {
         public readonly decimal Interest;
-        public readonly decimal TotalAmount;
         private readonly ILoanModel _loanModel;
 
-        public Loan(ILoanModel loanModel, decimal interest, decimal totalAmount)
+        public Loan(ILoanModel loanModel, decimal interest)
         {
             _loanModel = loanModel ?? throw new ArgumentNullException(nameof(loanModel));
 
             Interest = interest;
-            TotalAmount = totalAmount;
         }
 
-        public List<Payment> ReturnPayments(ushort numberOfYears)
+        public List<Payment> ReturnPayments(decimal totalAmount, ushort numberOfYears)
         {
-            return _loanModel.ReturnPayments(Interest, TotalAmount, numberOfYears);
+            return _loanModel.ReturnPayments(Interest, totalAmount, numberOfYears);
         }
     }
 }

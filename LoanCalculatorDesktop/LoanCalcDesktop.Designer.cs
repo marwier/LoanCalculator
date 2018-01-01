@@ -126,11 +126,12 @@ namespace LoanCalculatorDesktop
             this.loanAmountBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.loanAmountBox.Location = new System.Drawing.Point(371, 12);
             this.loanAmountBox.Name = "loanAmountBox";
-            this.loanAmountBox.ReadOnly = true;
             this.loanAmountBox.Size = new System.Drawing.Size(135, 30);
             this.loanAmountBox.TabIndex = 4;
             this.loanAmountBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.loanAmountBox.UseWaitCursor = true;
+            this.loanAmountBox.TextChanged += new System.EventHandler(this.LoanAmountBox_valueChanged);
+            this.loanAmountBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnBoxKeyPressedEvent);
             // 
             // loanYearsBox
             // 
@@ -142,7 +143,7 @@ namespace LoanCalculatorDesktop
             this.loanYearsBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.loanYearsBox.UseWaitCursor = true;
             this.loanYearsBox.TextChanged += new System.EventHandler(this.LoanYearsBox_valueChanged);
-            this.loanYearsBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LoanYearsBox_keyPressed);
+            this.loanYearsBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnBoxKeyPressedEvent);
             // 
             // amountLabel
             // 
@@ -166,7 +167,7 @@ namespace LoanCalculatorDesktop
             this.yearsLabel.Text = "Total Years";
             this.yearsLabel.UseWaitCursor = true;
             // 
-            // calculateButtonID
+            // calculateButton
             // 
             this.calculateButton.Enabled = false;
             this.calculateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));

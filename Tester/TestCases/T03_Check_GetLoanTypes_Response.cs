@@ -9,7 +9,7 @@ using Tester.Tools.WebHelpers;
 
 namespace Tester.TestCases
 {
-    class T04_Check_GetLoanTypes_Response : ITestCase
+    class T03_Check_GetLoanTypes_Response : ITestCase
     {
         private const string ServerAddress = @"http://localhost:55735";
 

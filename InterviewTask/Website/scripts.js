@@ -13,22 +13,8 @@ function getSelectedLoanData() {
                         style: "percent"
                     });
             });
-
-        // get total amount
-
-        $.getJSON('../api/Loan/GetAmount', {
-            LoanTypeId: selectedLoanId
-        }).done(
-            function (amount) {
-                document.getElementById("totalAmountFieldID").value = amount.toLocaleString("en",
-                    {
-                        style: 'currency',
-                        currency: 'USD'
-                    });
-            });
     }
     else {
-        document.getElementById("totalAmountFieldID").value = "-";
         document.getElementById("interestFieldID").value = "-";
     }
 }
@@ -36,6 +22,7 @@ function getSelectedLoanData() {
 function calculateLoan() {
     var selectedLoanId = document.getElementById("loanTypeDropDownListID").value;
     var years = document.getElementById("totalYearsFieldID").value;
+    var amount = document.getElementById("totalAmountFieldID").value;
 
     // disable button while calculating
     var button = document.getElementById("calculateButtonID");
@@ -56,6 +43,7 @@ function calculateLoan() {
     $.getJSON('../api/Loan/ReturnPayments',
         {
             LoanTypeId: selectedLoanId,
+            TotalAmount: amount,
             NumberOfYears: years
         }).done(
         function (data) {
@@ -120,10 +108,12 @@ $(function () {
 });
 
 $(function () {
-    $("#loanTypeDropDownListID, #totalYearsFieldID").bind("change keyup",
+    $("#loanTypeDropDownListID, #totalYearsFieldID, #totalAmountFieldID").bind("change keyup",
         function () {
             if ($("#loanTypeDropDownListID").val() !== "" && $("#totalYearsFieldID").val() !== "" &&
-                !isNaN(parseInt($("#totalYearsFieldID").val())) && isFinite($("#totalYearsFieldID").val())) {
+                !isNaN(parseInt($("#totalYearsFieldID").val())) && isFinite($("#totalYearsFieldID").val())
+                && $("#totalAmountFieldID").val() !== "" && !isNaN(parseInt($("#totalAmountFieldID").val()))
+                && isFinite($("#totalAmountFieldID").val())) {
                 document.getElementById("calculateButtonID").disabled = false;
             } else {
                 document.getElementById("calculateButtonID").disabled = true;

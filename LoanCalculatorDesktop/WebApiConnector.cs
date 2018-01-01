@@ -26,23 +26,17 @@ namespace LoanCalculatorDesktop
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task GetPayments(ushort loanTypeId, ushort numberOfYears)
+        public async Task GetPayments(ushort loanTypeId, decimal totalAmount, ushort numberOfYears)
         {
             await _currentForm.PopulateListView(
                 await PerformActionAsync<List<Payment>>(
-                    $"api/Loan/ReturnPayments?LoanTypeId={loanTypeId}&NumberOfYears={numberOfYears}"));
+                    $"api/Loan/ReturnPayments?LoanTypeId={loanTypeId}&TotalAmount={totalAmount}&NumberOfYears={numberOfYears}"));
         }
 
         public async Task<decimal> GetInterest(ushort loanTypeId)
         {
             return await PerformActionAsync<decimal>(
                 $"api/Loan/GetInterest?LoanTypeId={loanTypeId}");
-        }
-
-        public async Task<decimal> GetAmount(ushort loanTypeId)
-        {
-            return await PerformActionAsync<decimal>(
-                $"api/Loan/GetAmount?LoanTypeId={loanTypeId}");
         }
 
         public async Task GetLoanTypes()

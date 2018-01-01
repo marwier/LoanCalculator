@@ -21,25 +21,19 @@ namespace InterviewTask.Controllers
         }
 
         [HttpGet]
-        public decimal GetAmount(ushort loanTypeId)
-        {
-            return GetLoan(loanTypeId).TotalAmount;
-        }
-
-        [HttpGet]
         public List<LoanType> GetLoanTypes()
         {
             return _database.LoanTypes.ToList();
         }
 
         [HttpGet]
-        public List<Payment> ReturnPayments(ushort loanTypeId, ushort numberOfYears)
+        public List<Payment> ReturnPayments(ushort loanTypeId, decimal totalAmount, ushort numberOfYears)
         {
             var selectedLoan = GetLoan(loanTypeId);
 
             try
             {
-                return selectedLoan.ReturnPayments(numberOfYears);
+                return selectedLoan.ReturnPayments(totalAmount, numberOfYears);
             }
             catch (ArgumentOutOfRangeException)
             {

@@ -53,14 +53,14 @@ namespace InterviewTask.Data
 
         public Loan[] Loans { get; } =
         {
-            new Loan(new MonthlyCapitalization(), 0.11M, 4000),
-            new Loan(new MonthlyCapitalization(), 0.09M, 8000),
-            new Loan(new MonthlyCapitalization(), 0.055M, 6000),
-            new Loan(new MonthlyCapitalization(), 0.08M, 25000),
-            new Loan(new MonthlyCapitalization(), 0.21M, 10000),
-            new Loan(new MonthlyCapitalization(), 0.03M, 75000),
-            new Loan(new MonthlyCapitalization(), 0.05M, 225000),
-            new Loan(new MonthlyCapitalization(), 0.145M, 15000)
+            new Loan(new MonthlyCapitalization(), 0.11M),
+            new Loan(new MonthlyCapitalization(), 0.09M),
+            new Loan(new MonthlyCapitalization(), 0.055M),
+            new Loan(new MonthlyCapitalization(), 0.08M),
+            new Loan(new MonthlyCapitalization(), 0.21M),
+            new Loan(new MonthlyCapitalization(), 0.03M),
+            new Loan(new MonthlyCapitalization(), 0.05M),
+            new Loan(new MonthlyCapitalization(), 0.145M)
         };
     }
 }

@@ -9,8 +9,6 @@ using CommonModels;
 
 namespace LoanCalculatorDesktop
 {
-    using static UInt16;
-
     public partial class LoanCalcDesktop : Form
     {
         private readonly WebApiConnector _connector;
@@ -54,11 +52,10 @@ namespace LoanCalculatorDesktop
             var loanTypeId = ((LoanType)loanTypeComboBox.SelectedItem).LoanTypeId;
 
             interestTextBox.Text = (await _connector.GetInterest(loanTypeId)).ToString("P");
-            loanAmountBox.Text = (await _connector.GetAmount(loanTypeId)).ToString("0.00");
 
             if (loanTypeComboBox.SelectedItem == null)
                 calculateButton.Enabled = false;
-            else if (!string.IsNullOrEmpty(loanYearsBox.Text))
+            else if (!string.IsNullOrEmpty(loanYearsBox.Text) && !string.IsNullOrEmpty(loanAmountBox.Text))
                 calculateButton.Enabled = true;
         }
 
@@ -101,6 +98,7 @@ namespace LoanCalculatorDesktop
             // preparation part
             ushort loanTypeId;
             ushort numberOfYears;
+            decimal totalAmount;
 
             if (paymentListView.Items.Count != 0)
                 paymentListView.Items.Clear();
@@ -112,7 +110,8 @@ namespace LoanCalculatorDesktop
             try
             {
                 loanTypeId = ((LoanType)loanTypeComboBox.SelectedItem).LoanTypeId;
-                numberOfYears = Parse(loanYearsBox.Text);
+                numberOfYears = ushort.Parse(loanYearsBox.Text);
+                totalAmount = decimal.Parse(loanAmountBox.Text);
 
                 calculateValidation.Hide();
             }
@@ -131,7 +130,7 @@ namespace LoanCalculatorDesktop
 
             try
             {
-                await _connector.GetPayments(loanTypeId, numberOfYears);
+                await _connector.GetPayments(loanTypeId, totalAmount, numberOfYears);
 
                 serverConnectingLabel.Hide();
             }
@@ -148,7 +147,7 @@ namespace LoanCalculatorDesktop
 
         // input box related method(s)
 
-        private void LoanYearsBox_keyPressed(object sender, KeyPressEventArgs e)
+        private void OnBoxKeyPressedEvent(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
@@ -158,10 +157,40 @@ namespace LoanCalculatorDesktop
 
         private void LoanYearsBox_valueChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(loanYearsBox.Text) || !int.TryParse(loanYearsBox.Text, out var _))
-                calculateButton.Enabled = false;
-            else if (loanTypeComboBox.SelectedItem != null)
-                calculateButton.Enabled = true;
+            calculateButton.Enabled = ValidateAllUserInputs();
+        }
+
+        private void LoanAmountBox_valueChanged(object sender, EventArgs e)
+        {
+            calculateButton.Enabled = ValidateAllUserInputs();
+        }
+
+        // validation helpers
+
+        private bool ValidateLoanYearsBoxValue()
+        {
+            return !string.IsNullOrEmpty(loanYearsBox.Text) &&
+                   int.TryParse(loanYearsBox.Text,
+                       out var _);
+        }
+
+        private bool ValidateLoanAmountBoxValue()
+        {
+            return !string.IsNullOrEmpty(loanAmountBox.Text) &&
+                   decimal.TryParse(loanAmountBox.Text,
+                       out var _);
+        }
+
+        private bool ValidateLoanTypeComboBoxValue()
+        {
+            return loanTypeComboBox.SelectedItem != null;
+        }
+
+        private bool ValidateAllUserInputs()
+        {
+            return ValidateLoanYearsBoxValue() && 
+                   ValidateLoanAmountBoxValue() && 
+                   ValidateLoanTypeComboBoxValue();
         }
     }
 }
