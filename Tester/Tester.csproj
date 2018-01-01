@@ -63,6 +63,7 @@
     <Compile Include="TestCases\T02_Check_GetInterest_Response.cs" />
     <Compile Include="TestCases\T03_Check_GetAmount_Response.cs" />
     <Compile Include="TestCases\T04_Check_GetLoanTypes_Response.cs" />
+    <Compile Include="TestCases\T05_Check_ReturnPayments_Monthly_Response.cs" />
     <Compile Include="Tools\IISExpress\IISExpressActions.cs" />
     <Compile Include="Tools\Logs\Log.cs" />
     <Compile Include="Tools\Logs\TestLog.cs" />
