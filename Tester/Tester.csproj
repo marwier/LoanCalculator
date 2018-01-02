@@ -56,12 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCases\T01_Check_Endpoints.cs" />
+    <Compile Include="TestCases\WebService\CT01_Check_Endpoints.cs" />
     <Compile Include="Core\ITestCase.cs" />
     <Compile Include="Core\TestTemplate.cs" />
-    <Compile Include="TestCases\T02_Check_GetInterest_Response.cs" />
-    <Compile Include="TestCases\T03_Check_GetLoanTypes_Response.cs" />
-    <Compile Include="TestCases\T04_Check_ReturnPayments_Monthly_Response.cs" />
+    <Compile Include="TestCases\WebService\CT02_Check_GetInterest_Response.cs" />
+    <Compile Include="TestCases\WebService\CT03_Check_GetLoanTypes_Response.cs" />
+    <Compile Include="TestCases\WebService\CT04_Check_ReturnPayments_Monthly_Response.cs" />
     <Compile Include="Tester.cs" />
     <Compile Include="Tools\IISExpress\IISExpressActions.cs" />
     <Compile Include="Tools\Logs\Log.cs" />

@@ -9,9 +9,10 @@ using Tester.Tools.WebHelpers;
 
 namespace Tester.TestCases
 {
-    class T03_Check_GetLoanTypes_Response : ITestCase
+    class CT03_Check_GetLoanTypes_Response : ITestCase
     {
         private const string ServerAddress = @"http://localhost:55735";
+        private readonly string _urlToTest = $"{ServerAddress}/api/Loan/GetLoanTypes";
 
         public void Prepare()
         {
@@ -24,11 +25,10 @@ namespace Tester.TestCases
         public void Run()
         {
             TestLog.AddMessage("Checking response correct endpoint");
-            var urlToTest = $"{ServerAddress}/api/Loan/GetLoanTypes";
 
-            if (WebHelpers.VerifyEndpoints(urlToTest, HttpStatusCode.OK))
+            if (WebHelpers.VerifyEndpoints(_urlToTest, HttpStatusCode.OK))
             {
-                using (var response = WebRequest.Create(urlToTest).GetResponse())
+                using (var response = WebRequest.Create(_urlToTest).GetResponse())
                 {
                     var entireContent = WebHelpers.GetJsonPageContent<List<LoanType>>(response);
                     var firstRecord = entireContent.First();
@@ -48,11 +48,11 @@ namespace Tester.TestCases
 
                     if (expectedText == firstRecord.LoanText && expectedId == firstRecord.LoanTypeId)
                         TestLog.AddMessage(
-                            $"Received values: {firstRecord.LoanText} & {firstRecord.LoanTypeId} are equal to expected value: {expectedText} & {expectedId}",
+                            $"Received values: Text={firstRecord.LoanText} & ID={firstRecord.LoanTypeId} are equal to expected value: Text={expectedText} & ID={expectedId}",
                             TestLog.LogResult.Passed);
                     else
                         TestLog.AddMessage(
-                            $"Received value are: {firstRecord.LoanText} & {firstRecord.LoanTypeId}, but expected are: : {expectedText} & {expectedId}",
+                            $"Received value are: Text={firstRecord.LoanText} & ID={firstRecord.LoanTypeId}, but expected are: : Text={expectedText} & ID={expectedId}",
                             TestLog.LogResult.Failed);
                 }
             }

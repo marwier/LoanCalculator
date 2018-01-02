@@ -6,7 +6,8 @@ using Tester.Tools.WebHelpers;
 
 namespace Tester.TestCases
 {
-    public class T01_Check_Endpoints : ITestCase
+    // C stands for "complex" check
+    public class CT01_Check_Endpoints : ITestCase
     {
         private const string ServerAddress = @"http://localhost:55735";
 

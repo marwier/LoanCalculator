@@ -47,7 +47,7 @@ namespace InterviewTask.Controllers
             {
                 return _database.GetLoan(loanTypeId);
             }
-            catch
+            catch (IndexOutOfRangeException)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
