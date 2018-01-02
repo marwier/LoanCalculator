@@ -9,16 +9,38 @@ using CommonModels;
 
 namespace LoanCalculatorDesktop
 {
-    public partial class LoanCalcDesktop : Form
+    public partial class LoanCalcDesktop : Form, IViewLinker
     {
         private readonly WebApiConnector _connector;
         private readonly string _serverUrl;
+        private List<LoanType> _loanTypes;
+        private List<Payment> _payments;
+
+        public List<LoanType> LoanTypes
+        {
+            get => _loanTypes;
+            set
+            {
+                _loanTypes = value;
+                PopulateComboBox(value);
+            }
+        }
+
+        public List<Payment> Payments
+        {
+            get => _payments;
+            set
+            {
+                _payments = value;
+                PopulateListView(value);
+            }
+        }
 
         public LoanCalcDesktop()
         {
             _serverUrl = @"http://localhost:55735/";
             _connector = new WebApiConnector(this, _serverUrl);
-
+            
             InitializeComponent();
         }
 
@@ -42,7 +64,7 @@ namespace LoanCalculatorDesktop
 
         // Combobox related method(s)
 
-        public void PopulateComboBox(List<LoanType> loanTypes)
+        private void PopulateComboBox(List<LoanType> loanTypes)
         {
             loanTypeComboBox.Items.AddRange(loanTypes.ToArray());
         }
@@ -61,17 +83,14 @@ namespace LoanCalculatorDesktop
 
         // Listview related method(s)
 
-        public async Task PopulateListView(List<Payment> payments)
+        private void PopulateListView(List<Payment> payments)
         {
             var listViewRows = new List<ListViewItem>();
 
-            await Task.Factory.StartNew(() =>
+            foreach (var payment in payments)
             {
-                foreach (var payment in payments)
-                {
-                    listViewRows.Add(PopulateListViewRow(payment));
-                }
-            });
+                listViewRows.Add(PopulateListViewRow(payment));
+            }
 
             paymentListView.Items.AddRange(listViewRows.ToArray());
         }
@@ -188,8 +207,8 @@ namespace LoanCalculatorDesktop
 
         private bool ValidateAllUserInputs()
         {
-            return ValidateLoanYearsBoxValue() && 
-                   ValidateLoanAmountBoxValue() && 
+            return ValidateLoanYearsBoxValue() &&
+                   ValidateLoanAmountBoxValue() &&
                    ValidateLoanTypeComboBoxValue();
         }
     }

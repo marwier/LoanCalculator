@@ -11,14 +11,14 @@ namespace LoanCalculatorDesktop
     internal class WebApiConnector
     {
         private readonly HttpClient _client = new HttpClient();
-        private readonly LoanCalcDesktop _currentForm;
+        private readonly IViewLinker _linker;
 
-        public WebApiConnector(LoanCalcDesktop form, string webApiLink)
+        public WebApiConnector(IViewLinker linker, string webApiLink)
         {
             if (string.IsNullOrEmpty(webApiLink))
                 throw new ArgumentException(@"Value cannot be null or empty.", nameof(webApiLink));
 
-            _currentForm = form ?? throw new ArgumentNullException(nameof(form));
+            _linker = linker ?? throw new ArgumentNullException(nameof(linker));
 
             _client.BaseAddress = new Uri(webApiLink);
             _client.DefaultRequestHeaders.Accept.Clear();
@@ -28,9 +28,8 @@ namespace LoanCalculatorDesktop
 
         public async Task GetPayments(ushort loanTypeId, decimal totalAmount, ushort numberOfYears)
         {
-            await _currentForm.PopulateListView(
-                await PerformActionAsync<List<Payment>>(
-                    $"api/Loan/ReturnPayments?LoanTypeId={loanTypeId}&TotalAmount={totalAmount}&NumberOfYears={numberOfYears}"));
+            _linker.Payments = await PerformActionAsync<List<Payment>>(
+                    $"api/Loan/ReturnPayments?LoanTypeId={loanTypeId}&TotalAmount={totalAmount}&NumberOfYears={numberOfYears}");
         }
 
         public async Task<decimal> GetInterest(ushort loanTypeId)
@@ -41,9 +40,8 @@ namespace LoanCalculatorDesktop
 
         public async Task GetLoanTypes()
         {
-            _currentForm.PopulateComboBox(
-                await PerformActionAsync<List<LoanType>>(
-                    "api/Loan/GetLoanTypes"));
+            _linker.LoanTypes = await PerformActionAsync<List<LoanType>>(
+                        "api/Loan/GetLoanTypes");
         }
 
         private async Task<T> PerformActionAsync<T>(string requestUrl)

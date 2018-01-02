@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IViewLinker.cs" />
     <Compile Include="LoanCalcDesktop.cs">
       <SubType>Form</SubType>
     </Compile>
