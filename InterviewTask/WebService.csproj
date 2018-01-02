@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Models\IDatabase.cs" />
     <Compile Include="Data\MockDB.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

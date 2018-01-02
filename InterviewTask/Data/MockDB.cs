@@ -1,13 +1,12 @@
-﻿
-using CommonModels;
+﻿using CommonModels;
 using InterviewTask.Models;
 using InterviewTask.Models.LoanModels;
 
 namespace InterviewTask.Data
 {
-    public class MockDb
+    public class MockDb : IDatabase
     {
-        public LoanType[] LoanTypes { get; } =
+        private LoanType[] LoanTypes { get; } =
         {
             new LoanType
             {
@@ -51,7 +50,7 @@ namespace InterviewTask.Data
             }
         };
 
-        public Loan[] Loans { get; } =
+        private Loan[] Loans { get; } =
         {
             new Loan(new MonthlyCapitalization(), 0.11M),
             new Loan(new MonthlyCapitalization(), 0.09M),
@@ -62,5 +61,15 @@ namespace InterviewTask.Data
             new Loan(new MonthlyCapitalization(), 0.05M),
             new Loan(new MonthlyCapitalization(), 0.145M)
         };
+
+        public LoanType[] GetLoanTypes()
+        {
+            return LoanTypes;
+        }
+
+        public Loan GetLoan(ushort LoanTypeId)
+        {
+            return Loans[LoanTypeId];
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace InterviewTask.Controllers
 {
     public class LoanController : ApiController
     {
-        private readonly MockDb _database = new MockDb();
+        private readonly IDatabase _database = new MockDb();
 
         [HttpGet]
         public decimal GetInterest(ushort loanTypeId)
@@ -23,7 +23,7 @@ namespace InterviewTask.Controllers
         [HttpGet]
         public List<LoanType> GetLoanTypes()
         {
-            return _database.LoanTypes.ToList();
+            return _database.GetLoanTypes().ToList();
         }
 
         [HttpGet]
@@ -45,7 +45,7 @@ namespace InterviewTask.Controllers
         {
             try
             {
-                return _database.Loans[loanTypeId];
+                return _database.GetLoan(loanTypeId);
             }
             catch
             {
