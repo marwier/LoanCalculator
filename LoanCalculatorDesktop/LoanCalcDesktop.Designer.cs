@@ -130,7 +130,7 @@ namespace LoanCalculatorDesktop
             this.loanAmountBox.TabIndex = 4;
             this.loanAmountBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.loanAmountBox.UseWaitCursor = true;
-            this.loanAmountBox.TextChanged += new System.EventHandler(this.LoanAmountBox_valueChanged);
+            this.loanAmountBox.TextChanged += new System.EventHandler(this.BoxvalueChanged);
             this.loanAmountBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnBoxKeyPressedEvent);
             // 
             // loanYearsBox
@@ -142,7 +142,7 @@ namespace LoanCalculatorDesktop
             this.loanYearsBox.TabIndex = 5;
             this.loanYearsBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.loanYearsBox.UseWaitCursor = true;
-            this.loanYearsBox.TextChanged += new System.EventHandler(this.LoanYearsBox_valueChanged);
+            this.loanYearsBox.TextChanged += new System.EventHandler(this.BoxvalueChanged);
             this.loanYearsBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnBoxKeyPressedEvent);
             // 
             // amountLabel

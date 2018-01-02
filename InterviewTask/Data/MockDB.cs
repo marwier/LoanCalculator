@@ -4,6 +4,7 @@ using InterviewTask.Models.LoanModels;
 
 namespace InterviewTask.Data
 {
+    // hardcoded db, just for testing purposes
     public class MockDb : IDatabase
     {
         private LoanType[] LoanTypes { get; } =
@@ -67,9 +68,9 @@ namespace InterviewTask.Data
             return LoanTypes;
         }
 
-        public Loan GetLoan(ushort LoanTypeId)
+        public Loan GetLoan(ushort loanTypeId)
         {
-            return Loans[LoanTypeId];
+            return Loans[loanTypeId];
         }
     }
 }

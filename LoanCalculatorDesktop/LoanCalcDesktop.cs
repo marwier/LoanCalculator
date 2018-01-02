@@ -173,12 +173,7 @@ namespace LoanCalculatorDesktop
             }
         }
 
-        private void LoanYearsBox_valueChanged(object sender, EventArgs e)
-        {
-            calculateButton.Enabled = ValidateAllUserInputs();
-        }
-
-        private void LoanAmountBox_valueChanged(object sender, EventArgs e)
+        private void BoxvalueChanged(object sender, EventArgs e)
         {
             calculateButton.Enabled = ValidateAllUserInputs();
         }
